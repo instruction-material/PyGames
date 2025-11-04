@@ -1,20 +1,15 @@
 import random
-import sys
 
-import pgzrun
-
-
-mod = sys.modules['__main__']
 
 WIDTH = 570
 HEIGHT = 500
 
-blueSquare = mod.Actor("blue", (525, HEIGHT / 2 - 25))
+blueSquare = Actor("blue", (525, HEIGHT / 2 - 25))
 
 rects = []
 x = 45
 for i in range(6):
-	r = mod.Actor("red", (x, HEIGHT / 2 - 25))
+	r = Actor("red", (x, HEIGHT / 2 - 25))
 	rects.append(r)
 	x += 80
 
@@ -25,7 +20,7 @@ points = 0
 
 
 def draw():
-	mod.screen.fill((0, 0, 0))
+	screen.fill((0, 0, 0))
 	blueSquare.draw()
 	for i in rects:
 		i.draw()
@@ -61,6 +56,3 @@ def update():
 	blueSquare.y += speed
 	for i in rects:
 		i.y += speed
-
-
-pgzrun.go()

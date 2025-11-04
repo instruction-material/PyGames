@@ -1,28 +1,23 @@
 import random
-import sys
 
-import pgzrun
-
-
-mod = sys.modules['__main__']
 
 WIDTH, HEIGHT = 750, 600
 
-ball = mod.Actor('golf_ball')
+ball = Actor('golf_ball')
 ball.xspeed = 0
 ball.yspeed = 0
 ball.midleft = 10, HEIGHT / 2
 
-hole = mod.Actor('golf_hole', center=(WIDTH / 2, HEIGHT / 2))
-flag = mod.Actor('golf_flag', midbottom=hole.center)
+hole = Actor('golf_hole', center=(WIDTH / 2, HEIGHT / 2))
+flag = Actor('golf_flag', midbottom=hole.center)
 
 FRICTION = 0.95
 strokes = 0
 
 
 def draw():
-	mod.screen.fill((50, 100, 50))
-	mod.screen.draw.text("Strokes: " + str(strokes), (5, 5))
+	screen.fill((50, 100, 50))
+	screen.draw.text("Strokes: " + str(strokes), (5, 5))
 	flag.draw()
 	hole.draw()
 	ball.draw()
@@ -38,7 +33,7 @@ def on_mouse_down(pos):
 		ball.yspeed = (mouseY - ball.y) / 10
 		# increase num strokes by 1
 		strokes += 1
-		mod.sounds.swing.play()
+		sounds.swing.play()
 
 
 def update():
@@ -68,7 +63,4 @@ def update():
 	if ball.colliderect(hole) and abs(ball.xspeed) < 0.1 and abs(ball.yspeed) < 0.1:
 		hole.center = random.randint(0, WIDTH), random.randint(0, HEIGHT)
 		flag.midbottom = hole.center
-		mod.sounds.sink_hole.play()
-
-
-pgzrun.go()
+		sounds.sink_hole.play()

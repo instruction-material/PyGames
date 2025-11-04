@@ -1,11 +1,6 @@
 import random
-import sys
 import time
 
-import pgzrun
-
-
-mod = sys.modules['__main__']
 
 # fix sound delay
 # import pygame
@@ -17,14 +12,14 @@ mod = sys.modules['__main__']
 WIDTH, HEIGHT = 500, 400
 
 # list of bouncing balls
-ball = mod.Actor('beach_ball')
+ball = Actor('beach_ball')
 ball.x = random.randint(0, WIDTH)
 ball.y = random.randint(0, HEIGHT)
 ball.xspeed = random.randint(-5, 5)
 ball.yspeed = random.randint(-5, 5)
 
 # player controlled alien
-alien = mod.Actor('alien')
+alien = Actor('alien')
 
 # global score variable
 score = 0
@@ -32,13 +27,13 @@ score = 0
 
 # check if the player wants to move the alien
 def handle_controls():
-	if mod.keyboard.down and alien.bottom < HEIGHT:
+	if keyboard.down and alien.bottom < HEIGHT:
 		alien.y += 10
-	if mod.keyboard.up and alien.top > 0:
+	if keyboard.up and alien.top > 0:
 		alien.y -= 10
-	if mod.keyboard.right and alien.right < WIDTH:
+	if keyboard.right and alien.right < WIDTH:
 		alien.x += 10
-	if mod.keyboard.left and alien.left > 0:
+	if keyboard.left and alien.left > 0:
 		alien.x -= 10
 
 
@@ -68,7 +63,7 @@ def check_collisions():
 		ball.pos = random.randint(0, WIDTH), random.randint(0, HEIGHT)
 		ball.xspeed = random.randint(-5, 5)
 		ball.yspeed = random.randint(-5, 5)
-		mod.sounds.pop.play()
+		sounds.pop.play()
 
 
 def update():
@@ -82,16 +77,14 @@ def update():
 
 # draw player, balls, and score to the screen.
 def draw():
-	mod.screen.clear()
+	screen.clear()
 	alien.draw()
 	ball.draw()
-	mod.screen.draw.text("Score: " + str(score), (10, 10))
+	screen.draw.text("Score: " + str(score), (10, 10))
 
 
 def sleep():
 	time.sleep(1)
 
 
-mod.clock.schedule(sleep, 0)
-
-pgzrun.go()
+clock.schedule(sleep, 0)

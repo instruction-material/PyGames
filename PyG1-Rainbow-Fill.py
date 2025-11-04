@@ -1,15 +1,10 @@
 import random
-import sys
 
-import pgzrun
-
-
-mod = sys.modules['__main__']
 
 WIDTH = 500
 HEIGHT = 400
 
-colorwheel = mod.Actor('colorwheel')
+colorwheel = Actor('colorwheel')
 
 
 def draw():
@@ -18,6 +13,3 @@ def draw():
 
 def update():
 	colorwheel.center = random.randint(0, WIDTH), random.randint(0, HEIGHT)
-
-
-pgzrun.go()

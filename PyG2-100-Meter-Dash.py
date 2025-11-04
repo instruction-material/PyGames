@@ -1,23 +1,16 @@
-import sys
-
-import pgzrun
-
-
-mod = sys.modules['__main__']
-
 WIDTH, HEIGHT = 750, 240
 
-runner = mod.Actor('runner-1', midleft=(0, 120))
+runner = Actor('runner-1', midleft=(0, 120))
 
 
 def draw():
-	mod.screen.fill((255, 255, 255))
+	screen.fill((255, 255, 255))
 	runner.draw()
 
 
 def on_key_down(key):
 	# check if the left or right key was pressed
-	if key == mod.keys.LEFT or key == mod.keys.RIGHT:
+	if key == keys.LEFT or key == keys.RIGHT:
 		# move the runner to the right.
 		runner.x += 15
 		# swap the image
@@ -30,6 +23,3 @@ def on_key_down(key):
 def update():
 	if runner.right >= WIDTH:
 		runner.left = 0
-
-
-pgzrun.go()

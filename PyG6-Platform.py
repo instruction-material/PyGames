@@ -1,21 +1,14 @@
-import sys
-
-import pgzrun
-
-
-mod = sys.modules['__main__']
-
 WIDTH, HEIGHT = 750, 600
 
 # alien setup
-alien = mod.Actor('alien')
+alien = Actor('alien')
 alien.xspeed = 0
 alien.yspeed = 0
 alien.onground = False
 alien.pos = 300, 100
 
 # platform setup
-plat = mod.ZRect((0, HEIGHT - 100), (300, 20))
+plat = ZRect((0, HEIGHT - 100), (300, 20))
 
 # set speed for platform
 plat.xspeed = 2
@@ -32,8 +25,8 @@ FRICTION = 0.97
 
 
 def draw():
-	mod.screen.clear()
-	mod.screen.draw.filled_rect(plat, (255, 255, 255))
+	screen.clear()
+	screen.draw.filled_rect(plat, (255, 255, 255))
 	alien.draw()
 
 
@@ -45,11 +38,11 @@ def update():
 	# alien.yspeed *= FRICTION
 	
 	# check if any keys pressed
-	if mod.keyboard.left:
+	if keyboard.left:
 		alien.xspeed -= .3
-	if mod.keyboard.right:
+	if keyboard.right:
 		alien.xspeed += .3
-	if mod.keyboard.space and alien.onground:
+	if keyboard.space and alien.onground:
 		alien.yspeed = -11
 		alien.onground = False
 	
@@ -79,6 +72,3 @@ def update():
 		alien.yspeed = 0
 		alien.bottom = plat.top
 		alien.onground = True
-
-
-pgzrun.go()

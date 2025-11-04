@@ -1,15 +1,10 @@
 import random
-import sys
 
-import pgzrun
-
-
-mod = sys.modules['__main__']
 
 WIDTH, HEIGHT = 750, 600
 
 # create alien actor
-alien = mod.Actor("small_alien", center=(WIDTH / 2, 20))
+alien = Actor("small_alien", center=(WIDTH / 2, 20))
 alien.xspeed = 0
 alien.yspeed = 0
 
@@ -19,7 +14,7 @@ for i in range(10):
 	# create platform at random location on screen.
 	x = random.randint(0, WIDTH)
 	y = random.randint(0, HEIGHT)
-	p = mod.ZRect((x, y), (100, 20))
+	p = ZRect((x, y), (100, 20))
 	# set dynamic attributes of platform
 	p.yspeed = random.randint(3, 7)
 	p.color = tuple([random.randint(100, 255) for x in range(3)])
@@ -27,7 +22,7 @@ for i in range(10):
 	platforms.append(p)
 
 # create a "cheat" platform that always starts below the alien and moves slowly downward
-cheat = mod.ZRect((WIDTH / 2, HEIGHT - 300), (100, 20))
+cheat = ZRect((WIDTH / 2, HEIGHT - 300), (100, 20))
 cheat.yspeed = 3
 cheat.color = (255, 255, 255)
 platforms.append(cheat)
@@ -40,12 +35,12 @@ gameOver = False
 
 # draw each actor and the score to the screen
 def draw():
-	mod.screen.clear()
+	screen.clear()
 	for p in platforms:
-		mod.screen.draw.filled_rect(p, p.color)
+		screen.draw.filled_rect(p, p.color)
 	alien.draw()
 	if gameOver:
-		mod.screen.draw.text("GAME OVER!", (WIDTH / 3, HEIGHT / 2), fontsize=70)
+		screen.draw.text("GAME OVER!", (WIDTH / 3, HEIGHT / 2), fontsize=70)
 
 
 # update the game state
@@ -58,9 +53,9 @@ def update():
 		alien.xspeed *= FRICTION
 		
 		# check if any keys pressed
-		if mod.keyboard.left:
+		if keyboard.left:
 			alien.xspeed -= .3
-		if mod.keyboard.right:
+		if keyboard.right:
 			alien.xspeed += .3
 		
 		# move alien
@@ -81,11 +76,8 @@ def update():
 			if alien.colliderect(p) and alien.yspeed >= 0 and alien.bottom <= p.bottom:
 				alien.yspeed = -10
 				alien.bottom = p.top + 1
-				mod.sounds.jump.play()
+				sounds.jump.play()
 		
 		# check if alien falls offscreen
 		if alien.top > HEIGHT:
 			gameOver = True
-
-
-pgzrun.go()

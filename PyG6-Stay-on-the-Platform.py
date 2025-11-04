@@ -1,21 +1,14 @@
-import sys
-
-import pgzrun
-
-
-mod = sys.modules['__main__']
-
 WIDTH, HEIGHT = 750, 600
 
 # alien setup
-alien = mod.Actor('alien')
+alien = Actor('alien')
 alien.xspeed = 0
 alien.yspeed = 0
 alien.onground = False
 alien.pos = 200, 100
 
 # platform setup
-plat = mod.ZRect((0, HEIGHT - 100), (300, 20))
+plat = ZRect((0, HEIGHT - 100), (300, 20))
 
 # set speed for platform
 plat.xspeed = 2
@@ -35,14 +28,14 @@ lose = False
 
 def draw():
 	if lose:
-		mod.screen.clear()
-		mod.screen.draw.text("Score: " + str(score), (0, 0))
-		mod.screen.draw.text("GAME OVER", center=(WIDTH / 2, HEIGHT / 2), fontsize=50)
+		screen.clear()
+		screen.draw.text("Score: " + str(score), (0, 0))
+		screen.draw.text("GAME OVER", center=(WIDTH / 2, HEIGHT / 2), fontsize=50)
 	else:
-		mod.screen.clear()
-		mod.screen.draw.filled_rect(plat, (255, 255, 255))
+		screen.clear()
+		screen.draw.filled_rect(plat, (255, 255, 255))
 		alien.draw()
-		mod.screen.draw.text("Score: " + str(score), (0, 0))
+		screen.draw.text("Score: " + str(score), (0, 0))
 
 
 def update():
@@ -56,11 +49,11 @@ def update():
 		# alien.yspeed *= FRICTION
 		
 		# check if any keys pressed
-		if mod.keyboard.left:
+		if keyboard.left:
 			alien.xspeed -= .3
-		if mod.keyboard.right:
+		if keyboard.right:
 			alien.xspeed += .3
-		if mod.keyboard.space and alien.onground:
+		if keyboard.space and alien.onground:
 			alien.yspeed = -11
 			alien.onground = False
 		
@@ -103,6 +96,3 @@ def update():
 		# if alien falls off screen, game is over
 		if alien.top > HEIGHT:
 			lose = True
-
-
-pgzrun.go()

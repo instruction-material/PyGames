@@ -1,9 +1,3 @@
-import sys
-
-import pgzrun
-
-mod = sys.modules['__main__']
-
 # PART 1: BIGFOOT SINGLE PLATFORM ----------------
 """
 WIDTH,HEIGHT = 600,500
@@ -109,5 +103,3 @@ def draw():
         screen.draw.filled_rect(plat, plat.color)
     bigfoot.draw()
 '''
-
-pgzrun.go()

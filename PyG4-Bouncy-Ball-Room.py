@@ -1,23 +1,18 @@
 import random
-import sys
 
-import pgzrun
-
-
-mod = sys.modules['__main__']
 
 WIDTH = 640
 HEIGHT = 400
 balls = []
 for i in range(10):
-	b = mod.Actor('beach_ball', (random.randint(100, 600), random.randint(100, 300)))
+	b = Actor('beach_ball', (random.randint(100, 600), random.randint(100, 300)))
 	b.xspeed = random.randint(-7, 7)
 	b.yspeed = random.randint(-7, 7)
 	balls.append(b)
 
 
 def draw():
-	mod.screen.clear()
+	screen.clear()
 	for b in balls:
 		b.draw()
 
@@ -71,6 +66,3 @@ def update():
 		
 		for j in balls:
 			checkBallCollision(i, j)
-
-
-pgzrun.go()

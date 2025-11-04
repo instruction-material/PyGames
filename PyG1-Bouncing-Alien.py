@@ -1,20 +1,13 @@
-import sys
-
-import pgzrun
-
-
-mod = sys.modules['__main__']
-
 WIDTH, HEIGHT = 500, 400
 
-alien = mod.Actor('alien')
+alien = Actor('alien')
 
 xspeed = 5
 yspeed = 5
 
 
 def draw():
-	mod.screen.clear()
+	screen.clear()
 	alien.draw()
 
 
@@ -25,16 +18,13 @@ def update():
 	
 	if alien.right >= WIDTH:
 		xspeed = -5
-		mod.sounds.pop.play()
+		sounds.pop.play()
 	if alien.bottom >= HEIGHT:
 		yspeed = -5
-		mod.sounds.pop.play()
+		sounds.pop.play()
 	if alien.left <= 0:
 		xspeed = 5
-		mod.sounds.pop.play()
+		sounds.pop.play()
 	if alien.top <= 0:
 		yspeed = 5
-		mod.sounds.pop.play()
-
-
-pgzrun.go()
+		sounds.pop.play()

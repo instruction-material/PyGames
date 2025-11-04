@@ -1,31 +1,24 @@
-import sys
-
-import pgzrun
-
-
-mod = sys.modules['__main__']
-
 WIDTH, HEIGHT = 750, 600
 
 # alien setup
-alien = mod.Actor('small_alien', bottomleft=(50, 500))
+alien = Actor('small_alien', bottomleft=(50, 500))
 alien.spawn = alien.center
 alien.xspeed = 0
 alien.yspeed = 0
 alien.onground = False
 
 # platform setup
-start = mod.ZRect((0, 500), (150, 20))
-d1 = mod.ZRect((600, 150), (150, 20))
-d2 = mod.ZRect((600, 500), (150, 20))
-mover1 = mod.ZRect((288, 250), (150, 20))
-mover2 = mod.ZRect((288, 175), (75, 20))
+start = ZRect((0, 500), (150, 20))
+d1 = ZRect((600, 150), (150, 20))
+d2 = ZRect((600, 500), (150, 20))
+mover1 = ZRect((288, 250), (150, 20))
+mover2 = ZRect((288, 175), (75, 20))
 
 # put platforms and movers into the platforms list
 platforms = [start, d1, d2, mover1, mover2]
 # add step platforms
 for i in range(4):
-	p = mod.ZRect((200 + i * 100, 500 - i * 50), (50, 20))
+	p = ZRect((200 + i * 100, 500 - i * 50), (50, 20))
 	platforms.append(p)
 
 # set the xspeed for all of the platforms
@@ -46,7 +39,7 @@ mover2.leftlimit = WIDTH / 4
 mover2.rightlimit = 3 * WIDTH / 4
 
 # make the end diamond
-diamond = mod.Actor("diamond_s")
+diamond = Actor("diamond_s")
 diamond.x = WIDTH - 50
 diamond.y = 100
 
@@ -57,15 +50,15 @@ gameOver = False
 
 
 def draw():
-	mod.screen.clear()
+	screen.clear()
 	for p in platforms:
-		mod.screen.draw.filled_rect(p, (255, 255, 255))
+		screen.draw.filled_rect(p, (255, 255, 255))
 	if not gameOver:
 		diamond.draw()
 	alien.draw()
 	# check if game over
 	if gameOver:
-		mod.screen.draw.text("You Win!", (WIDTH / 3, 10), fontsize=100)
+		screen.draw.text("You Win!", (WIDTH / 3, 10), fontsize=100)
 
 
 def update():
@@ -76,14 +69,14 @@ def update():
 	alien.xspeed *= FRICTION
 	
 	# check if any keys pressed
-	if mod.keyboard.left:
+	if keyboard.left:
 		alien.xspeed -= .3
-	if mod.keyboard.right:
+	if keyboard.right:
 		alien.xspeed += .3
-	if mod.keyboard.space and alien.onground:
+	if keyboard.space and alien.onground:
 		alien.yspeed = -8
 		alien.onground = False
-		mod.sounds.jump.play()
+		sounds.jump.play()
 	
 	# move any moving platforms
 	for p in platforms:
@@ -109,7 +102,7 @@ def update():
 	# check for collision with diamond
 	if not gameOver and diamond.colliderect(alien):
 		gameOver = True
-		mod.sounds.gem.play()
+		sounds.gem.play()
 	
 	# check for platform collision
 	alien.onground = False
@@ -131,6 +124,3 @@ def update():
 	if alien.top > HEIGHT:
 		alien.center = alien.spawn
 		alien.xspeed = 0
-
-
-pgzrun.go()
