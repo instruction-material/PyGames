@@ -1,3 +1,7 @@
+"""
+Create ten ball actors that move in random directions at different speeds around the screen and bounce off of the walls.
+"""
+
 import random
 
 

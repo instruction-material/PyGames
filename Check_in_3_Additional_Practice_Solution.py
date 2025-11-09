@@ -1,0 +1,200 @@
+"""
+Add an additional crab enemy to your Shark Chase game. The crab should move left and right along the bottom of the ocean floor to follow the diver. If the crab touches the diver while they are not hiding in the seaweed, then the game should end.
+"""
+
+import random
+
+import pygame
+
+pygame.mixer.pre_init(22050, -16, 2, 1024)
+pygame.init()
+pygame.mixer.quit()
+pygame.mixer.init(22050, -16, 2, 1024)
+
+WIDTH,HEIGHT = 750,600
+
+# make seaweed
+seaweed = Actor('seaweed', midbottom=(WIDTH/2,HEIGHT+20))
+
+# make diver
+diver = Actor('diver-right', midtop=seaweed.midtop)
+diver.xspeed = 0
+diver.yspeed = 0
+
+# make shark
+shark = Actor('shark-left', pos=(WIDTH/2,50))
+# use two variables to store the target position of the shark
+shark.xspeed = 0
+shark.yspeed = 0
+# speed multiplier of shark
+shark.speedMultiplier = 1
+
+# make fish
+fish = []
+for i in range(10):
+    f=Actor('fish', pos=(random.randint(0,WIDTH),random.randint(0,HEIGHT/2)))
+    f.xspeed = random.uniform(1,3)
+    fish.append(f)
+
+# make crab
+crab = Actor('crab',bottomleft=(50,HEIGHT))
+
+# global variables
+GRAVITY = 0.1
+FRICTION = 0.97
+gameState = 'play'
+score = 0
+
+
+def draw():
+    screen.clear()
+    screen.fill((70,130,200))
+    if gameState == 'play':
+        diver.draw()
+        for f in fish:
+            f.draw()
+        seaweed.draw()
+        crab.draw()
+        shark.draw()
+
+        screen.draw.text("Fish Collected: " + str(score), midtop=(WIDTH/2,0), color=(255,255,255), shadow=(2,2))
+    elif gameState == 'lose':
+        diver.draw()
+        screen.draw.text("Game Over!\n\nPress Enter to Play Again \nor Escape to Quit!", center=(WIDTH/2, HEIGHT/2), fontsize=35)
+
+
+
+def update():
+    global score, gameState
+
+    # apply gravity and friction
+    diver.yspeed += GRAVITY
+    diver.xspeed *= FRICTION
+    diver.yspeed *= FRICTION
+
+    # if player is pressing 'up' make diver swim up, etc. Only do this when gameState is play
+    if gameState == 'play':
+        if keyboard.up:
+            diver.yspeed -= .3
+        if keyboard.left:
+            diver.xspeed -= .3
+            diver.image = 'diver-left'
+        if keyboard.right:
+            diver.xspeed += .3
+            diver.image = 'diver-right'
+        if keyboard.down:
+            diver.yspeed += .1
+
+    # update position of diver
+    diver.y += diver.yspeed
+    diver.x += diver.xspeed
+    # if game is over, we also want to rotate the diver
+    if gameState == 'lose':
+        diver.angle += 1
+
+    # keep diver onscreen - only do this if gameState is play
+    if gameState == 'play':
+        if diver.right > WIDTH:
+            diver.right = WIDTH
+            diver.xspeed = 0
+        elif diver.left < 0:
+            diver.left = 0
+            diver.xspeed = 0
+        if diver.bottom > HEIGHT:
+            diver.bottom = HEIGHT
+            diver.yspeed = 0
+        elif diver.top < 0:
+            diver.top = 0
+            diver.yspeed = 0
+
+    # update shark
+    # move shark towards target
+    shark.x += shark.xspeed
+    shark.y += shark.yspeed
+    # check if shark got diver. Diver is still safe if hiding behind seaweed.
+    if shark.colliderect(diver) and not seaweed.contains(diver):
+        gameState = 'lose'
+        music.fadeout(4)
+
+    # update fish
+    # move each fish
+    for f in fish:
+        f.x += f.xspeed
+        if f.left > WIDTH:
+            f.right = 0
+    # check if player collected fish
+    for f in fish:
+        if diver.colliderect(f):
+            f.pos = (-100,random.randint(0,HEIGHT/2))
+            score += 1
+            sounds.pop.play()
+
+    # update crab ----------------------------------
+    # move the crab towards the diver
+    if not seaweed.contains(diver):
+        if diver.x > crab.x:
+            crab.x += 1
+        elif diver.x < crab.x:
+            crab.x -= 1
+    else:
+        if crab.x < WIDTH/2:
+            crab.x -= 0.3
+        else:
+            crab.x += 0.3
+    # end the game if the crab gets the diver and the diver is not hiding in the seaweed
+    if crab.colliderect(diver) and not seaweed.contains(diver):
+        gameState = 'lose'
+        music.fadeout(4)
+
+def setTarget():
+    if seaweed.contains(diver):
+        xtarget = random.randint(0,WIDTH)
+        ytarget = random.randint(0,HEIGHT)
+        shark.speedMultiplier /= 1.1
+    else:
+        xtarget = diver.x
+        ytarget = diver.y
+        shark.speedMultiplier *= 1.1
+
+    # find the shark's necessary xspeed and yspeed to get to target point
+    distance = shark.distance_to((xtarget, ytarget))
+    shark.xspeed = shark.speedMultiplier * (xtarget-shark.x)/distance
+    shark.yspeed = shark.speedMultiplier * (ytarget-shark.y)/distance
+
+    # set direction of shark
+    if shark.xspeed < 0:
+        shark.image = 'shark-left'
+    else:
+        shark.image = 'shark-right'
+
+    # clamp the speed multiplier between 1 and 6
+    if shark.speedMultiplier > 6:
+        shark.speedMultiplier = 6
+    elif shark.speedMultiplier < 1:
+        shark.speedMultiplier = 1
+
+def on_key_down(key):
+    global gameState, score
+    # reset the game
+    if key is keys.RETURN and gameState != 'play':
+        score = 0
+        # reset shark
+        shark.midtop = WIDTH/2,0
+        shark.xspeed = 0
+        shark.yspeed = 0
+        shark.speedMultiplier = 1
+        # reset diver
+        diver.midtop = seaweed.midtop
+        diver.xspeed = 0
+        diver.yspeed = 0
+        diver.angle = 0
+        # set gameState back to play
+        gameState = 'play'
+        music.play('water_theme')
+    # exit game
+    elif key == keys.ESCAPE and gameState != 'play':
+        quit()
+
+clock.schedule_interval(setTarget,1)
+
+music.play('water_theme')

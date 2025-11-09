@@ -1,3 +1,7 @@
+"""
+Modify either of the bigfoot games so that whenever you press the “f” key, the gravity flips upside down. Make sure that bigfoot does not fly out of the top of the box when gravity is reversed.You can also flip bigfoot upside with bigfoot.angle = 180.
+"""
+
 WIDTH, HEIGHT = 600, 500
 
 # create a bigfoot actor

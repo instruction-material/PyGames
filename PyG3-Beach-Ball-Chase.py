@@ -1,3 +1,7 @@
+"""
+Create a Ball actor that moves in random directions around the screen and bounces off of the walls. Use dynamic attributes to store the xspeed and yspeed of the ball. Next, add in a player-controlled Alien actor. When the player uses the arrows on the keyboard, the alien should move around the screen. Whenever a player collides with the ball, increase the player’s score by one, move the ball to a random location on the screen, and give the ball a new xspeed and yspeed. Use a global variable to keep track of the score.
+"""
+
 import random
 import time
 

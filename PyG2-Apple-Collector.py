@@ -1,3 +1,7 @@
+"""
+Create an apple Actor that moves to a new random position every time it is clicked.
+"""
+
 import random
 
 

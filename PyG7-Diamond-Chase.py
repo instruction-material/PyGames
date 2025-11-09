@@ -1,8 +1,11 @@
+"""
+Create a program where the alien collects the gems. The player needs to press the spacebar to start the game. Whenever the alien collects a gem, the player gets a point. Try to get as many points as possible before the timer runs out! When the game ends, the player can press the spacebar to play again!
+"""
+
 import random
 
 
-WIDTH = 520
-HEIGHT = 520
+WIDTH, HEIGHT = 520, 520
 
 alien = Actor("ufo", (WIDTH / 2, HEIGHT / 2))
 gem1 = Actor("diamond_s", (100, 100))

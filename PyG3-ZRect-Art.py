@@ -1,3 +1,7 @@
+"""
+Create a list with 10 randomly sized and located ZRect objects. Then in your draw method, loop through the list and display all of the ZRects with a different random color for each.
+"""
+
 import random
 import time
 

@@ -1,8 +1,11 @@
+"""
+Create a game where the alien needs to collect the coins on the screen. Whenever the alien collects one of the coins, the score goes up by 1. Watch out! If the alien touches one of the 3 red blocks moving up and down the screen, the player loses 10 points and the alien resets to a random position on the screen.
+"""
+
 import random
 
 
-WIDTH = 800
-HEIGHT = 700
+WIDTH, HEIGHT = 800, 700
 
 coins = []
 for c in range(10):

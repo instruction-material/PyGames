@@ -1,3 +1,7 @@
+"""
+Create a game where the rocket needs to move left and right to dodge the asteroids that are falling down from the top of the screen. If the rocket gets hit with one of the asteroids, the player loses a life. The player loses when all three lives are lost.
+"""
+
 import random
 
 

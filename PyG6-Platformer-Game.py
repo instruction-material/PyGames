@@ -1,3 +1,7 @@
+"""
+Create a game with at least 8 platforms, at least 1 moving platform, and a collectible diamond at the end of the level. When the diamond has been collected, write “You Win!” on the screen. If the alien falls off of the screen, set the alien back to the start of the level.
+"""
+
 WIDTH, HEIGHT = 750, 600
 
 # alien setup

@@ -1,3 +1,7 @@
+"""
+Create an actor with the colorwheel image. The actor should move to a random position and draw its image to the screen.
+"""
+
 import random
 
 

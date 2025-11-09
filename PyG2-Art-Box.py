@@ -1,5 +1,8 @@
-WIDTH = 700
-HEIGHT = 700
+"""
+Create a program where when the user drags the box across the screen, the box leaves behind a trail of color. When the space key is pressed, the screen is cleared, and the previous drawings of the box are erased. When the “d” key is pressed, the box changes to the next color. When the “a” key is pressed, the square changes to its previous color.
+"""
+
+WIDTH, HEIGHT = 700, 700
 
 colors = ["blue", "red", "purple", "green", "orange", "yellow"]
 index = 0

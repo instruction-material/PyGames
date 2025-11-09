@@ -1,3 +1,7 @@
+"""
+Create a memory game where the player needs to select the numbers in numerical order. After the last number in order is selected, the player moves on to the next level. As the player progresses, the string of numbers gets longer and longer. If the player fails to select all of the numbers before time runs out, the player loses a life. Once the player loses all three lives, the player loses. The game has three modes of difficulty: easy, medium, and hard. On “easy”, the player has 25 seconds to choose all of the numbers. On “medium”, the player has 20 seconds to choose all of the numbers. On “hard”, the player has 15 seconds to choose all of the numbers.
+"""
+
 import random
 import time
 

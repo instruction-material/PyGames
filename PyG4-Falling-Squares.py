@@ -1,3 +1,7 @@
+"""
+Create a program where six red squares and one blue square in a line continuously fall down the screen. When the blue square is clicked, the line of squares falls faster.
+"""
+
 import random
 
 

@@ -1,3 +1,7 @@
+"""
+Create two Actors, a lightbulb that appears in the center of the screen and a battery that can be dragged around by the mouse using event listeners. Create an update function that checks if the two actors are colliding using colliderect. If so, set the lightbulb’s image to the “on_bulb.” If they are not colliding, set the lightbulb’s image to the “off_bulb.”
+"""
+
 WIDTH, HEIGHT = 500, 400
 
 # create the two Actors objects

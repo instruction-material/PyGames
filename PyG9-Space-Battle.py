@@ -1,3 +1,7 @@
+"""
+Create a game where the player controls a rocket that moves left and right along the bottom of the screen and can shoot lasers upward. On the top of the screen, create an alien ship that moves left and right, slowly advances toward the player and speeds up, and shoots lasers downward at random intervals. The player wins the game if they can take away all of the alien ship’s health before taking too many hits.
+"""
+
 import random
 
 

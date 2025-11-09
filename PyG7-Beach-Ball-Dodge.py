@@ -1,5 +1,8 @@
-WIDTH = 500
-HEIGHT = 700
+"""
+Create a game where the blue square needs to avoid the beach balls that move back and forth across the screen. If the blue square touches one of the beach balls, the game ends. The blue square starts off small and then increases in size every 5 seconds. Try to avoid the beach balls for as long as possible!
+"""
+
+WIDTH, HEIGHT = 500, 700
 
 bRect = Rect((WIDTH / 2, 670), (20, 20))
 rects = []

@@ -1,3 +1,7 @@
+"""
+Create one platform that bounces around the screen and slowly speeds up. The player’s goal is to stay on the platform for as long as possible. Display the score in the top left corner and when the player falls below the screen, show the final score and display the words “GAME OVER” on the screen.
+"""
+
 WIDTH, HEIGHT = 750, 600
 
 # alien setup

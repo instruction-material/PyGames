@@ -1,3 +1,7 @@
+"""
+Create a program where the rocket needs to shoot down the falling asteroids. If the rocket gets hit or one of the asteroids reaches the bottom of the screen, the game ends. Try to last as long as you can!
+"""
+
 import random
 
 

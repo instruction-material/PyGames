@@ -1,3 +1,7 @@
+"""
+Create a program with 10 balls that bounce off of the walls. Each of the balls should be affected by gravity and slowed down by friction. Whenever the player presses the spacebar, the balls should be given a random location and speed. Whenever the user clicks on a ball, the ball should be given a random speed.
+"""
+
 import random
 
 

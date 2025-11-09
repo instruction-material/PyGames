@@ -1,3 +1,7 @@
+"""
+The target will appear at a random location on the screen. Hit all 10 targets with the ninja star before all of the time runs out! Be careful where you aim: the ninja can only throw one ninja star at a time.
+"""
+
 import random
 
 

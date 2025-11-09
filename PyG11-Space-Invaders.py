@@ -1,5 +1,8 @@
-WIDTH = 650
-HEIGHT = 500
+"""
+Program the classic game Space Invaders, where the rocket tries to shoot down as many alien spaceships as they can. Press the space button to fire the laser and press the left and right arrow keys to move the rocket left and right across the bottom of the screen. Add a pause menu where the player can turn sounds and music on and off, continue the game, restart, or quit. Watch out for alien fire! If the rocket gets hit by a laser beam, the player loses a life. The game is over when all three lives are lost! The rocket can hide beneath any of the white barriers on the screen, but beware! The barriers will shrink every time they are hit with a laser beam.
+"""
+
+WIDTH, HEIGHT = 650, 500
 
 rocket = Actor("small_rocket", (WIDTH / 2, HEIGHT - 50))
 shields = []

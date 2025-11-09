@@ -1,3 +1,7 @@
+"""
+Create a game where a ball is falling due to gravity. Whenever the player clicks on the ball, it should “pop” up as if someone hit it up from the bottom. In order to pop the ball up, set the yspeed to a small negative value and the xspeed to a random value between -15 and 15. Display the number of times the player pops the ball up in the top left corner and whenever the player clicks on the ball, increase the score by one. Make sure that the ball bounces off of the sides of the screen.
+"""
+
 import random
 import time
 

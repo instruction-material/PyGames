@@ -1,3 +1,7 @@
+"""
+Create a program where the spaceship collects the falling gems. Every time the ship catches a gem, the player earns 5 points. Be careful of the bombs! Every time a bomb hits the spaceship, the player loses 10 points.
+"""
+
 import random
 
 

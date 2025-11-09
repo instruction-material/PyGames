@@ -1,3 +1,7 @@
+"""
+Create a program with 6 red squares and 1 blue square. Whenever the user clicks on the blue square, make it change its position on the screen.
+"""
+
 import random
 
 

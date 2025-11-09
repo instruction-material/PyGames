@@ -1,3 +1,7 @@
+"""
+Create a basic Golf game with one golf ball and a hole with a flag at the center of the screen. Everytime the mouse is clicked, set the xspeed and yspeed of the ball so that it moves in the direction towards where the mouse was clicked. Make sure that the ball is not moving before changing the xspeed and yspeed so that the player should not be able to hit the golf ball while it is moving. Add a friction force to your game so that the ball will slow down as it moves. Keep track of the number of strokes and display it in the top left corner of the screen.
+"""
+
 import random
 
 

@@ -1,3 +1,7 @@
+"""
+Create a game where there are 10 platforms falling from the sky at random speeds and from random places. Using the left and right arrow keys, the player needs to try to jump on the platforms to stay on screen for as long as possible. When the player falls offscreen, end the game and display the words “Game Over” on the screen. In this game, the player does not press space to jump, but instead, the player automatically jumps when they land on top of a platform.
+"""
+
 import random
 
 

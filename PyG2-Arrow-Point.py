@@ -1,5 +1,8 @@
-WIDTH = 500
-HEIGHT = 500
+"""
+Create a program where the arrow performs different actions when various keyboard keys are pressed. When the user presses their up/left/right/down arrow keys, make the arrow move in that direction. When the user presses their w/a/s/d keys, make the arrow point in the up/left/down/right directions respectively. When the user presses the “f” key, make the arrow turn 10 degrees to the left. When the user presses the “j” key, make the arrow turn 10 degrees to the right.
+"""
+
+WIDTH, HEIGHT = 500, 500
 arrow = Actor('up-arrow', (250, 250))
 
 

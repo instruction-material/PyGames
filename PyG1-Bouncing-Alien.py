@@ -1,3 +1,7 @@
+"""
+Create an alien actor that moves in a straight diagonal line across the screen and bounces when she hits a wall. Since the alien will be changing directions in this project, we will need to create global variables for the alien’s speed in the x direction and her speed in the y direction.
+"""
+
 WIDTH, HEIGHT = 500, 400
 
 alien = Actor('alien')

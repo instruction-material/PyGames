@@ -1,3 +1,7 @@
+"""
+Create a program where a beach ball starts in the middle of the screen and then moves in a random direction until it goes offscreen. When the ball goes offscreen, it should come back to the center and then travel off in a different random direction.
+"""
+
 import random
 
 

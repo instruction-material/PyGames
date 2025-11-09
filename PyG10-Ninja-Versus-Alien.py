@@ -1,3 +1,7 @@
+"""
+Create a two player game where one player controls a ninja and another player controls an alien. Both players are racing to collect the most diamonds. Every time a player grabs a diamond, they get 10 points and the diamond moves to a new random location. Both players can also slow each other down by shooting projectiles that send the other player back to the start and decrease the score of the player who got hit.
+"""
+
 import random
 
 

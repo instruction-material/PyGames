@@ -1,3 +1,7 @@
+"""
+Try to get the alien to stop in the red box! As the alien moves across the screen, press the spacebar to make the alien stop moving. If the alien is touching the target red square when it stops, the player gets a point! If the alien isn’t touching the red square or reaches the end of the screen, the player loses a life. The game ends when all 3 lives are lost.
+"""
+
 import time
 
 

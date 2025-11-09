@@ -1,3 +1,7 @@
+"""
+Create a game where a player-controlled diver tries to collect fish, but a computer controlled shark follows the player. If the player hides behind the seaweed at the bottom of the screen, the shark will “forget” where the player is and stop following them.
+"""
+
 import random
 
 
