@@ -1,28 +1,29 @@
-"""
-Create a program with 6 red squares and 1 blue square. Whenever the user clicks on the blue square, make it change its position on the screen.
-"""
-
 import random
+import sys
 
+import pgzrun
+
+
+mod = sys.modules['__main__']
 
 WIDTH = 570
 HEIGHT = 500
 
-blue_square = Actor("blue", (285, HEIGHT / 2 - 25))
-r1 = Actor("red", (125, HEIGHT / 2 - 25))
-r2 = Actor("red", (205, HEIGHT / 2 - 25))
-r3 = Actor("red", (365, HEIGHT / 2 - 25))
-r4 = Actor("red", (445, HEIGHT / 2 - 25))
-r5 = Actor("red", (525, HEIGHT / 2 - 25))
-r6 = Actor("red", (45, HEIGHT / 2 - 25))
+blue_square = mod.Actor("blue", (285, HEIGHT / 2 - 25))
+r1 = mod.Actor("red", (125, HEIGHT / 2 - 25))
+r2 = mod.Actor("red", (205, HEIGHT / 2 - 25))
+r3 = mod.Actor("red", (365, HEIGHT / 2 - 25))
+r4 = mod.Actor("red", (445, HEIGHT / 2 - 25))
+r5 = mod.Actor("red", (525, HEIGHT / 2 - 25))
+r6 = mod.Actor("red", (45, HEIGHT / 2 - 25))
 rects = [r1, r2, r3, r4, r5, r6]
 
 positions = [45, 125, 205, 285, 365, 445, 525]
-music.play("tune.mp3")
+mod.music.play("tune.mp3")
 
 
 def draw():
-	screen.fill((0, 0, 0))
+	mod.screen.fill((0, 0, 0))
 	blue_square.draw()
 	for square in rects:
 		square.draw()
@@ -38,3 +39,6 @@ def reset_squares():
 	tempx = blue_square.x
 	blue_square.x = rects[index].x
 	rects[index].x = tempx
+
+
+pgzrun.go()

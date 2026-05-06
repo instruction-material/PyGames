@@ -1,5 +1,9 @@
 import random
+import sys
 
+import pgzrun
+
+mod = sys.modules['__main__']
 
 # ACTORS
 
@@ -10,7 +14,7 @@ WIDTH = 800
 HEIGHT = 700
 
 # What is an Actor? Create a new actor alien using the "alien" image.
-alien = Actor("alien")
+alien = mod.Actor("alien")
 
 # How would make sure that the alien starts off at the bottom right corner of the screen?
 alien.bottomright = (WIDTH, HEIGHT)
@@ -37,29 +41,29 @@ yspeed = -10
 # Make the alien change direction whenever an arrow key is pressed.
 # Whenever the alien goes off of the screen, make the alien bounce off of the edge.
 def on_key_down(key):
-	global xspeed, yspeed
-	
-	if key == keys.RIGHT:
-		xspeed = 10
-		yspeed = 0
-	
-	if key == keys.LEFT:
-		xspeed = -10
-		yspeed = 0
-	
-	if key == keys.DOWN:
-		xspeed = 0
-		yspeed = 10
-	
-	if key == keys.UP:
-		xspeed = 0
-		yspeed = -10
+    global xspeed, yspeed
+
+    if key == mod.keys.RIGHT:
+        xspeed = 10
+        yspeed = 0
+
+    if key == mod.keys.LEFT:
+        xspeed = -10
+        yspeed = 0
+
+    if key == mod.keys.DOWN:
+        xspeed = 0
+        yspeed = 10
+
+    if key == mod.keys.UP:
+        xspeed = 0
+        yspeed = -10
 
 
 # wherever the left mouse button is clicked, make the actor move to that part on the screen
 def on_mouse_down(pos, button):
-	if mouse.LEFT == button:
-		alien.x, alien.y = pos
+    if mod.mouse.LEFT == button:
+        alien.x, alien.y = pos
 
 
 # ZRECT AND DYNAMIC ATTRIBUTES
@@ -69,7 +73,7 @@ def on_mouse_down(pos, button):
 
 # Create a blue ZRect object at a random position on the screen of width 50 and height 50 and draw it on the screen.
 #                   (       x,                         y,              width, height)
-blueRect = ZRect(random.randint(0, WIDTH), random.randint(0, HEIGHT), 50, 50)
+blueRect = mod.ZRect(random.randint(0, WIDTH), random.randint(0, HEIGHT), 50, 50)
 blueRect.color = (0, 0, 255)
 
 # What are dynamic attributes?
@@ -91,71 +95,74 @@ blueRect.yspeed = 10
 # Make them all move in a random direction on a screen and bounce off of the edges.
 squares = []
 for s in range(10):
-	b = ZRect(random.randint(50, WIDTH - 50), random.randint(50, HEIGHT - 50), 50, 50)
-	b.yspeed = random.randint(-10, 10)
-	b.xspeed = random.randint(-10, 10)
-	b.color = (0, 0, 255)
-	squares.append(b)
+    b = mod.ZRect(random.randint(50, WIDTH - 50), random.randint(50, HEIGHT - 50), 50, 50)
+    b.yspeed = random.randint(-10, 10)
+    b.xspeed = random.randint(-10, 10)
+    b.color = (0, 0, 255)
+    squares.append(b)
 
 
 def draw():
-	screen.clear()
-	
-	# Draw the alien on the screen.
-	alien.draw()
-	
-	# Create a blue ZRect object at a random position on the screen of width 50 and height 50 and draw it on the screen.
-	# screen.draw.filled_rect(blueRect,  blueRect.color)
-	
-	# when the squares are in a list
-	for s in squares:
-		screen.draw.filled_rect(s, s.color)
+    mod.screen.clear()
+
+    # Draw the alien on the screen.
+    alien.draw()
+
+    # Create a blue ZRect object at a random position on the screen of width 50 and height 50 and draw it on the screen.
+    # screen.draw.filled_rect(blueRect,  blueRect.color)
+
+    # when the squares are in a list
+    for s in squares:
+        mod.screen.draw.filled_rect(s, s.color)
 
 
 def update():
-	# Using the yspeed variable, make the alien move upwards on the screen.
-	# When the alien gets to the top of the screen, make the alien bounce off of the edge.
-	global yspeed, xspeed, color
-	
-	alien.y += yspeed
-	alien.x += xspeed
-	
-	if alien.top < 0 or alien.bottom > HEIGHT:
-		yspeed = -yspeed
-	
-	if alien.right > WIDTH or alien.left < 0:
-		xspeed = -xspeed
-	
-	# Use dynamic variables to make the blue ZRect move up and down on the screen.
-	"""blueRect.y += blueRect.yspeed
+    # Using the yspeed variable, make the alien move upwards on the screen.
+    # When the alien gets to the top of the screen, make the alien bounce off of the edge.
+    global yspeed, xspeed, color
 
-	if blueRect.top < 0 or blueRect.bottom > HEIGHT:
-		blueRect.yspeed = -blueRect.yspeed
+    alien.y += yspeed
+    alien.x += xspeed
 
-	# When the alien collides with the blue ZRect, make the ZRect change to a random color.
-	if blueRect.colliderect(alien):
-		blueRect.color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
-	"""
-	
-	# multiple squares
-	for s in range(len(squares)):
-		squares[s].y += squares[s].yspeed
-		squares[s].x += squares[s].xspeed
-		
-		if squares[s].top < 0 or squares[s].bottom > HEIGHT:
-			squares[s].yspeed = -squares[s].yspeed
-		if squares[s].right > WIDTH or squares[s].left < 0:
-			squares[s].xspeed = -squares[s].xspeed
-		
-		# When any of them collide with the alien, make them change to a random color
-		if squares[s].colliderect(alien):
-			squares[s].color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
-		
-		# When any of them collid with each other, make them bounce off of each other.
-		for i in range(len(squares)):
-			if i != s:
-				if squares[s].colliderect(squares[i]):
-					squares[s].yspeed = -squares[s].yspeed
-					squares[s].xspeed = -squares[s].xspeed
-					squares[i].xspeed = -squares[i].xspeed
-					squares[i].yspeed = -squares[i].yspeed
+    if alien.top < 0 or alien.bottom > HEIGHT:
+        yspeed = -yspeed
+
+    if alien.right > WIDTH or alien.left < 0:
+        xspeed = -xspeed
+
+    # Use dynamic variables to make the blue ZRect move up and down on the screen.
+    """blueRect.y += blueRect.yspeed
+
+    if blueRect.top < 0 or blueRect.bottom > HEIGHT:
+        blueRect.yspeed = -blueRect.yspeed
+
+    # When the alien collides with the blue ZRect, make the ZRect change to a random color.
+    if blueRect.colliderect(alien):
+        blueRect.color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+    """
+
+    # multiple squares
+    for s in range(len(squares)):
+        squares[s].y += squares[s].yspeed
+        squares[s].x += squares[s].xspeed
+
+        if squares[s].top < 0 or squares[s].bottom > HEIGHT:
+            squares[s].yspeed = -squares[s].yspeed
+        if squares[s].right > WIDTH or squares[s].left < 0:
+            squares[s].xspeed = -squares[s].xspeed
+
+        # When any of them collide with the alien, make them change to a random color
+        if squares[s].colliderect(alien):
+            squares[s].color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+
+        # When any of them collid with each other, make them bounce off of each other.
+        for i in range(len(squares)):
+            if i != s:
+                if squares[s].colliderect(squares[i]):
+                    squares[s].yspeed = -squares[s].yspeed
+                    squares[s].xspeed = -squares[s].xspeed
+                    squares[i].xspeed = -squares[i].xspeed
+                    squares[i].yspeed = -squares[i].yspeed
+
+
+pgzrun.go()

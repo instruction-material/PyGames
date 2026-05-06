@@ -1,12 +1,17 @@
 import random
+import sys
 
+import pgzrun
+
+
+mod = sys.modules['__main__']
 
 WIDTH = 800
 HEIGHT = 600
 
-spaceship = Actor("spaceship", (WIDTH / 2 - 50, 550))
-target1 = Actor("target", (random.randint(100, WIDTH - 100), random.randint(100, HEIGHT - 200)))
-target2 = Actor("target", (random.randint(100, WIDTH - 100), random.randint(100, HEIGHT - 200)))
+spaceship = mod.Actor("spaceship", (WIDTH / 2 - 50, 550))
+target1 = mod.Actor("target", (random.randint(100, WIDTH - 100), random.randint(100, HEIGHT - 200)))
+target2 = mod.Actor("target", (random.randint(100, WIDTH - 100), random.randint(100, HEIGHT - 200)))
 
 # SYSTEM CONTROL
 ################################################################################################
@@ -32,14 +37,14 @@ gameState = "start"
 # Make it so that the space ship can only fire one laser at a time.
 
 fired = False
-laser = ZRect((spaceship.x, spaceship.y - 50), (10, 10))
+laser = mod.ZRect((spaceship.x, spaceship.y - 50), (10, 10))
 
 # Change your code so that the space ship is able to fire multiple lasers at a time.
 lasers = []
 
 
 def draw():
-	screen.clear()
+	mod.screen.clear()
 	
 	# Add a start screen to your game so that the user needs to press the space key to begin.
 	if gameState == "play":
@@ -54,17 +59,17 @@ def draw():
 		
 		# when the player can fire multiple lasers
 		for i in lasers:
-			screen.draw.filled_rect(i, (255, 255, 255))
+			mod.screen.draw.filled_rect(i, (255, 255, 255))
 	
 	else:
-		screen.draw.text("Press space to play!", center=(WIDTH / 2, HEIGHT / 2), fontsize=80, color=(255, 255, 255))
+		mod.screen.draw.text("Press space to play!", center=(WIDTH / 2, HEIGHT / 2), fontsize=80, color=(255, 255, 255))
 
 
 def moveShip():
-	if keyboard.left and spaceship.x > 30:
+	if mod.keyboard.left and spaceship.x > 30:
 		spaceship.x -= 15
 	
-	if keyboard.right and spaceship.x < 770:
+	if mod.keyboard.right and spaceship.x < 770:
 		spaceship.x += 15
 
 
@@ -78,8 +83,8 @@ def moveTargets():
 
 def on_key_down(key):
 	global fired, projectiles
-	if key == keys.SPACE:
-		r = Rect((spaceship.x, spaceship.y - 50), (10, 10))
+	if key == mod.keys.SPACE:
+		r = mod.Rect((spaceship.x, spaceship.y - 50), (10, 10))
 		lasers.append(r)
 
 
@@ -88,11 +93,11 @@ def update():
 	
 	# Add a start screen to your game so that the user needs to press the space key to begin.
 	if gameState == "start":
-		if keyboard.RETURN:
+		if mod.keyboard.RETURN:
 			gameState = "play"
 			
 			# Make the targets move to a random location every 5 seconds.
-			clock.schedule_interval(moveTargets, 5.0)
+			mod.clock.schedule_interval(moveTargets, 5.0)
 	else:
 		moveShip()
 		
@@ -128,3 +133,6 @@ def update():
 		
 		target1.x += xchange
 		target1.y += ychange
+
+
+pgzrun.go()

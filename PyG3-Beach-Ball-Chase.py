@@ -1,10 +1,11 @@
-"""
-Create a Ball actor that moves in random directions around the screen and bounces off of the walls. Use dynamic attributes to store the xspeed and yspeed of the ball. Next, add in a player-controlled Alien actor. When the player uses the arrows on the keyboard, the alien should move around the screen. Whenever a player collides with the ball, increase the player’s score by one, move the ball to a random location on the screen, and give the ball a new xspeed and yspeed. Use a global variable to keep track of the score.
-"""
-
 import random
+import sys
 import time
 
+import pgzrun
+
+
+mod = sys.modules['__main__']
 
 # fix sound delay
 # import pygame
@@ -16,14 +17,14 @@ import time
 WIDTH, HEIGHT = 500, 400
 
 # list of bouncing balls
-ball = Actor('beach_ball')
+ball = mod.Actor('beach_ball')
 ball.x = random.randint(0, WIDTH)
 ball.y = random.randint(0, HEIGHT)
 ball.xspeed = random.randint(-5, 5)
 ball.yspeed = random.randint(-5, 5)
 
 # player controlled alien
-alien = Actor('alien')
+alien = mod.Actor('alien')
 
 # global score variable
 score = 0
@@ -31,13 +32,13 @@ score = 0
 
 # check if the player wants to move the alien
 def handle_controls():
-	if keyboard.down and alien.bottom < HEIGHT:
+	if mod.keyboard.down and alien.bottom < HEIGHT:
 		alien.y += 10
-	if keyboard.up and alien.top > 0:
+	if mod.keyboard.up and alien.top > 0:
 		alien.y -= 10
-	if keyboard.right and alien.right < WIDTH:
+	if mod.keyboard.right and alien.right < WIDTH:
 		alien.x += 10
-	if keyboard.left and alien.left > 0:
+	if mod.keyboard.left and alien.left > 0:
 		alien.x -= 10
 
 
@@ -67,7 +68,7 @@ def check_collisions():
 		ball.pos = random.randint(0, WIDTH), random.randint(0, HEIGHT)
 		ball.xspeed = random.randint(-5, 5)
 		ball.yspeed = random.randint(-5, 5)
-		sounds.pop.play()
+		mod.sounds.pop.play()
 
 
 def update():
@@ -81,14 +82,16 @@ def update():
 
 # draw player, balls, and score to the screen.
 def draw():
-	screen.clear()
+	mod.screen.clear()
 	alien.draw()
 	ball.draw()
-	screen.draw.text("Score: " + str(score), (10, 10))
+	mod.screen.draw.text("Score: " + str(score), (10, 10))
 
 
 def sleep():
 	time.sleep(1)
 
 
-clock.schedule(sleep, 0)
+mod.clock.schedule(sleep, 0)
+
+pgzrun.go()

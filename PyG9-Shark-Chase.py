@@ -1,22 +1,23 @@
-"""
-Create a game where a player-controlled diver tries to collect fish, but a computer controlled shark follows the player. If the player hides behind the seaweed at the bottom of the screen, the shark will “forget” where the player is and stop following them.
-"""
-
 import random
+import sys
 
+import pgzrun
+
+
+mod = sys.modules['__main__']
 
 WIDTH, HEIGHT = 750, 600
 
 # make seaweed
-seaweed = Actor('seaweed', midbottom=(WIDTH / 2, HEIGHT + 20))
+seaweed = mod.Actor('seaweed', midbottom=(WIDTH / 2, HEIGHT + 20))
 
 # make diver
-diver = Actor('diver-right', midtop=seaweed.midtop)
+diver = mod.Actor('diver-right', midtop=seaweed.midtop)
 diver.xspeed = 0
 diver.yspeed = 0
 
 # make shark
-shark = Actor('shark-left', pos=(WIDTH / 2, 50))
+shark = mod.Actor('shark-left', pos=(WIDTH / 2, 50))
 # use two variables to store the target position of the shark
 shark.xspeed = 0
 shark.yspeed = 0
@@ -26,7 +27,7 @@ shark.speedMultiplier = 1
 # make fish
 fish = []
 for i in range(10):
-	f = Actor('fish', pos=(random.randint(0, WIDTH), random.randint(0, int(HEIGHT / 2))))
+	f = mod.Actor('fish', pos=(random.randint(0, WIDTH), random.randint(0, int(HEIGHT / 2))))
 	f.xspeed = random.uniform(1, 3)
 	fish.append(f)
 
@@ -38,8 +39,8 @@ score = 0
 
 
 def draw():
-	screen.clear()
-	screen.fill((70, 130, 200))
+	mod.screen.clear()
+	mod.screen.fill((70, 130, 200))
 	if gameState == 'play':
 		diver.draw()
 		for f in fish:
@@ -47,10 +48,10 @@ def draw():
 		seaweed.draw()
 		shark.draw()
 		
-		screen.draw.text("Fish Collected: " + str(score), midtop=(WIDTH / 2, 0), color=(255, 255, 255), shadow=(2, 2))
+		mod.screen.draw.text("Fish Collected: " + str(score), midtop=(WIDTH / 2, 0), color=(255, 255, 255), shadow=(2, 2))
 	elif gameState == 'lose':
 		diver.draw()
-		screen.draw.text("Game Over!\n\nPress Enter to Play Again \nor Escape to Quit!", center=(WIDTH / 2, HEIGHT / 2), fontsize=35)
+		mod.screen.draw.text("Game Over!\n\nPress Enter to Play Again \nor Escape to Quit!", center=(WIDTH / 2, HEIGHT / 2), fontsize=35)
 
 
 def update():
@@ -63,15 +64,15 @@ def update():
 	
 	# if player is pressing 'up' make diver swim up, etc. Only do this when gameState is play
 	if gameState == 'play':
-		if keyboard.up:
+		if mod.keyboard.up:
 			diver.yspeed -= .3
-		if keyboard.left:
+		if mod.keyboard.left:
 			diver.xspeed -= .3
 			diver.image = 'diver-left'
-		if keyboard.right:
+		if mod.keyboard.right:
 			diver.xspeed += .3
 			diver.image = 'diver-right'
-		if keyboard.down:
+		if mod.keyboard.down:
 			diver.yspeed += .1
 	
 	# update position of diver
@@ -103,7 +104,7 @@ def update():
 	# check if shark got diver. Diver is still safe if hiding behind seaweed.
 	if shark.colliderect(diver) and not seaweed.contains(diver):
 		gameState = 'lose'
-		music.fadeout(4)
+		mod.music.fadeout(4)
 	
 	# update fish
 	# move each fish
@@ -116,7 +117,7 @@ def update():
 		if diver.colliderect(f):
 			f.pos = (-100, random.randint(0, int(HEIGHT / 2)))
 			score += 1
-			sounds.pop.play()
+			mod.sounds.pop.play()
 
 
 def setTarget():
@@ -150,7 +151,7 @@ def setTarget():
 def on_key_down(key):
 	global gameState, score
 	# reset the game
-	if key is keys.RETURN and gameState != 'play':
+	if key is mod.keys.RETURN and gameState != 'play':
 		score = 0
 		# reset shark
 		shark.midtop = WIDTH / 2, 0
@@ -164,12 +165,14 @@ def on_key_down(key):
 		diver.angle = 0
 		# set gameState back to play
 		gameState = 'play'
-		music.play('water_theme')
+		mod.music.play('water_theme')
 	# exit game
-	elif key == keys.ESCAPE and gameState != 'play':
+	elif key == mod.keys.ESCAPE and gameState != 'play':
 		quit()
 
 
-clock.schedule_interval(setTarget, 1)
+mod.clock.schedule_interval(setTarget, 1)
 
-music.play('water_theme')
+mod.music.play('water_theme')
+
+pgzrun.go()

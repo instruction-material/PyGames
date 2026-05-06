@@ -1,10 +1,11 @@
-"""
-Create a memory game where the player needs to select the numbers in numerical order. After the last number in order is selected, the player moves on to the next level. As the player progresses, the string of numbers gets longer and longer. If the player fails to select all of the numbers before time runs out, the player loses a life. Once the player loses all three lives, the player loses. The game has three modes of difficulty: easy, medium, and hard. On “easy”, the player has 25 seconds to choose all of the numbers. On “medium”, the player has 20 seconds to choose all of the numbers. On “hard”, the player has 15 seconds to choose all of the numbers.
-"""
-
 import random
+import sys
 import time
 
+import pgzrun
+
+
+mod = sys.modules['__main__']
 
 WIDTH = 600
 HEIGHT = 600
@@ -16,9 +17,9 @@ timer = startTime
 levelStart = False
 
 nums = []
-pause = Actor("pause", (570, 30))
+pause = mod.Actor("pause", (570, 30))
 for i in range(1, 16):
-	n = Actor(str(i))
+	n = mod.Actor(str(i))
 	nums.append(n)
 
 lives = 3
@@ -26,47 +27,47 @@ count = 3
 track = 0
 
 # level buttons
-easy = Rect((WIDTH / 2 - 75, 250), (150, 50))
-medium = Rect((WIDTH / 2 - 75, 330), (150, 50))
-hard = Rect((WIDTH / 2 - 75, 410), (150, 50))
+easy = mod.Rect((WIDTH / 2 - 75, 250), (150, 50))
+medium = mod.Rect((WIDTH / 2 - 75, 330), (150, 50))
+hard = mod.Rect((WIDTH / 2 - 75, 410), (150, 50))
 
 # pause buttons
-restart = Rect((WIDTH / 2 - 75, 330), (150, 50))
-continueButton = Rect((WIDTH / 2 - 75, 250), (150, 50))
-quitButton = Rect((WIDTH / 2 - 75, 410), (150, 50))
+restart = mod.Rect((WIDTH / 2 - 75, 330), (150, 50))
+continueButton = mod.Rect((WIDTH / 2 - 75, 250), (150, 50))
+quitButton = mod.Rect((WIDTH / 2 - 75, 410), (150, 50))
 
 # music and sounds
-sound = Actor("volume", (WIDTH / 2 - 50, 200))
+sound = mod.Actor("volume", (WIDTH / 2 - 50, 200))
 soundOn = True
-musicPlayer = Actor("music", (WIDTH / 2 + 50, 200))
+musicPlayer = mod.Actor("music", (WIDTH / 2 + 50, 200))
 musicOn = True
 
-music.play("tune.mp3")
+mod.music.play("tune.mp3")
 
 
 def draw():
-	screen.clear()
+	mod.screen.clear()
 	if gameState == "start":
-		screen.draw.text("Welcome to Number Count!", center=(WIDTH / 2, 150), fontsize=50, color=(255, 255, 255))
-		screen.draw.text("Choose a Level to Start:", center=(WIDTH / 2, 200), fontsize=45, color=(255, 255, 255))
+		mod.screen.draw.text("Welcome to Number Count!", center=(WIDTH / 2, 150), fontsize=50, color=(255, 255, 255))
+		mod.screen.draw.text("Choose a Level to Start:", center=(WIDTH / 2, 200), fontsize=45, color=(255, 255, 255))
 		
-		screen.draw.filled_rect(easy, (147, 112, 219))
-		screen.draw.text("Easy", center=(WIDTH / 2, 275), fontsize=30, color=(255, 255, 255))
-		screen.draw.filled_rect(medium, (147, 112, 219))
-		screen.draw.text("Medium", center=(WIDTH / 2, 355), fontsize=30, color=(255, 255, 255))
-		screen.draw.filled_rect(hard, (147, 112, 219))
-		screen.draw.text("Hard", center=(WIDTH / 2, 435), fontsize=30, color=(255, 255, 255))
+		mod.screen.draw.filled_rect(easy, (147, 112, 219))
+		mod.screen.draw.text("Easy", center=(WIDTH / 2, 275), fontsize=30, color=(255, 255, 255))
+		mod.screen.draw.filled_rect(medium, (147, 112, 219))
+		mod.screen.draw.text("Medium", center=(WIDTH / 2, 355), fontsize=30, color=(255, 255, 255))
+		mod.screen.draw.filled_rect(hard, (147, 112, 219))
+		mod.screen.draw.text("Hard", center=(WIDTH / 2, 435), fontsize=30, color=(255, 255, 255))
 	
 	elif gameState == "end":
 		if count >= 15:
-			screen.draw.text("You beat all the levels!", center=(WIDTH / 2, HEIGHT / 2 - 50), fontsize=40,
-			                 color=(255, 255, 255))
-		screen.draw.text("Game Over!\n Press Space to Play Again!", center=(WIDTH / 2, HEIGHT / 2), fontsize=40,
-		                 color=(255, 255, 255))
+			mod.screen.draw.text("You beat all the levels!", center=(WIDTH / 2, HEIGHT / 2 - 50), fontsize=40,
+			                     color=(255, 255, 255))
+		mod.screen.draw.text("Game Over!\n Press Space to Play Again!", center=(WIDTH / 2, HEIGHT / 2), fontsize=40,
+		                     color=(255, 255, 255))
 	elif gameState == "play":
 		# pause.draw()
-		screen.draw.text("Timer: " + str(timer), center=(50, 570), fontsize=30, color=(255, 255, 255))
-		screen.draw.text("Lives: " + str(lives), center=(550, 570), fontsize=30, color=(255, 255, 255))
+		mod.screen.draw.text("Timer: " + str(timer), center=(50, 570), fontsize=30, color=(255, 255, 255))
+		mod.screen.draw.text("Lives: " + str(lives), center=(550, 570), fontsize=30, color=(255, 255, 255))
 		for i in range(count):
 			nums[i].draw()
 	"""else:
@@ -111,14 +112,14 @@ def on_mouse_down(pos):
 			levelStart = True
 			track += 1
 			if soundOn:
-				sounds.gem.play()
+				mod.sounds.gem.play()
 		
 		if nums[count - 1].collidepoint(pos) and track == count - 1:
 			count += 1
 			resetNums()
 			
 			if soundOn:
-				sounds.gem.play()
+				mod.sounds.gem.play()
 		
 		for i in range(1, count):
 			if nums[i].collidepoint(pos):
@@ -126,7 +127,7 @@ def on_mouse_down(pos):
 				if i == track:
 					track += 1
 					if soundOn:
-						sounds.gem.play()
+						mod.sounds.gem.play()
 				elif i > track:
 					# do something
 					time.sleep(0.3)
@@ -168,7 +169,7 @@ def resetNums():
 	track = 0
 	levelStart = False
 	timer = startTime
-	clock.unschedule(decreaseTimer)
+	mod.clock.unschedule(decreaseTimer)
 	for i in range(count):
 		nums[i].x = random.randint(100, 500)
 		nums[i].y = random.randint(100, 500)
@@ -176,7 +177,7 @@ def resetNums():
 
 
 def hideNums():
-	clock.schedule_interval(decreaseTimer, 1.0)
+	mod.clock.schedule_interval(decreaseTimer, 1.0)
 	for i in range(1, count):
 		nums[i].image = "blank"
 
@@ -190,12 +191,12 @@ def update():
 	global gameState, count, lives
 	
 	if gameState == "end":
-		if keyboard.space:
+		if mod.keyboard.space:
 			gameState = "start"
 			count = 3
 			lives = 3
 		
-		if keyboard.escape:
+		if mod.keyboard.escape:
 			quit()
 	elif gameState == "play":
 		if lives <= 0 or count >= 15:
@@ -204,3 +205,6 @@ def update():
 		if timer < 0:
 			lives -= 1
 			resetNums()
+
+
+pgzrun.go()

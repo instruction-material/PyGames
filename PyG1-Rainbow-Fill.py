@@ -1,14 +1,15 @@
-"""
-Create an actor with the colorwheel image. The actor should move to a random position and draw its image to the screen.
-"""
-
 import random
+import sys
 
+import pgzrun
+
+
+mod = sys.modules['__main__']
 
 WIDTH = 500
 HEIGHT = 400
 
-colorwheel = Actor('colorwheel')
+colorwheel = mod.Actor('colorwheel')
 
 
 def draw():
@@ -17,3 +18,6 @@ def draw():
 
 def update():
 	colorwheel.center = random.randint(0, WIDTH), random.randint(0, HEIGHT)
+
+
+pgzrun.go()

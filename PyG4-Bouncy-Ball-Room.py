@@ -1,22 +1,23 @@
-"""
-Create ten ball actors that move in random directions at different speeds around the screen and bounce off of the walls.
-"""
-
 import random
+import sys
 
+import pgzrun
+
+
+mod = sys.modules['__main__']
 
 WIDTH = 640
 HEIGHT = 400
 balls = []
 for i in range(10):
-	b = Actor('beach_ball', (random.randint(100, 600), random.randint(100, 300)))
+	b = mod.Actor('beach_ball', (random.randint(100, 600), random.randint(100, 300)))
 	b.xspeed = random.randint(-7, 7)
 	b.yspeed = random.randint(-7, 7)
 	balls.append(b)
 
 
 def draw():
-	screen.clear()
+	mod.screen.clear()
 	for b in balls:
 		b.draw()
 
@@ -70,3 +71,6 @@ def update():
 		
 		for j in balls:
 			checkBallCollision(i, j)
+
+
+pgzrun.go()

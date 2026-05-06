@@ -1,40 +1,41 @@
-"""
-Try to get the alien to stop in the red box! As the alien moves across the screen, press the spacebar to make the alien stop moving. If the alien is touching the target red square when it stops, the player gets a point! If the alien isn’t touching the red square or reaches the end of the screen, the player loses a life. The game ends when all 3 lives are lost.
-"""
-
+import sys
 import time
 
+import pgzrun
+
+
+mod = sys.modules['__main__']
 
 WIDTH = 700
 HEIGHT = 200
 
-alien = Actor('alien', (15, HEIGHT / 2))
+alien = mod.Actor('alien', (15, HEIGHT / 2))
 alien.xspeed = 5
-target = Rect((WIDTH / 2 - 35, HEIGHT / 2 - 30), (70, 70))
+target = mod.Rect((WIDTH / 2 - 35, HEIGHT / 2 - 30), (70, 70))
 score = 0
 lives = 3
 gameState = "start"
 
 
 def draw():
-	screen.clear()
+	mod.screen.clear()
 	if gameState == "play":
-		screen.draw.filled_rect(target, (200, 10, 10))
+		mod.screen.draw.filled_rect(target, (200, 10, 10))
 		alien.draw()
-		screen.draw.text("Score: " + str(score), center=(50, 30), fontsize=30, color=(255, 255, 255))
-		screen.draw.text("Lives: " + str(lives), center=(650, 30), fontsize=30, color=(255, 255, 255))
+		mod.screen.draw.text("Score: " + str(score), center=(50, 30), fontsize=30, color=(255, 255, 255))
+		mod.screen.draw.text("Lives: " + str(lives), center=(650, 30), fontsize=30, color=(255, 255, 255))
 	elif gameState == "start":
-		screen.draw.text("Press Enter to Start the Game!", center=(WIDTH / 2, HEIGHT / 2), fontsize=40,
-		                 color=(255, 255, 255))
+		mod.screen.draw.text("Press Enter to Start the Game!", center=(WIDTH / 2, HEIGHT / 2), fontsize=40,
+		                     color=(255, 255, 255))
 	else:
-		screen.draw.text("Game Over!\nPress Enter to Play Again or Escape to Quit!", center=(WIDTH / 2, HEIGHT / 2),
-		                 fontsize=40, color=(255, 255, 255))
+		mod.screen.draw.text("Game Over!\nPress Enter to Play Again or Escape to Quit!", center=(WIDTH / 2, HEIGHT / 2),
+		                     fontsize=40, color=(255, 255, 255))
 
 
 def on_key_down(key):
 	global score, gameState, lives
 	
-	if key == keys.SPACE and gameState == "play":
+	if key == mod.keys.SPACE and gameState == "play":
 		currentSpeed = alien.xspeed
 		alien.xspeed = 0
 		
@@ -52,13 +53,13 @@ def on_key_down(key):
 def update():
 	global gameState, lives, score
 	if gameState == "start" or gameState == "end":
-		if keyboard.RETURN or keyboard.kp_enter:
+		if mod.keyboard.RETURN or mod.keyboard.kp_enter:
 			gameState = "play"
 			lives = 3
 			score = 0
 			alien.xspeed = 5
 		
-		if keyboard.escape:
+		if mod.keyboard.escape:
 			quit()
 	else:
 		if alien.x >= WIDTH:
@@ -69,3 +70,6 @@ def update():
 			gameState = "end"
 		
 		alien.x += alien.xspeed
+
+
+pgzrun.go()

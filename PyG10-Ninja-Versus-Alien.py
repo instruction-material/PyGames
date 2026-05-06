@@ -1,14 +1,15 @@
-"""
-Create a two player game where one player controls a ninja and another player controls an alien. Both players are racing to collect the most diamonds. Every time a player grabs a diamond, they get 10 points and the diamond moves to a new random location. Both players can also slow each other down by shooting projectiles that send the other player back to the start and decrease the score of the player who got hit.
-"""
-
 import random
+import sys
 
+import pgzrun
+
+
+mod = sys.modules['__main__']
 
 WIDTH, HEIGHT = 1200, 600
 
 # make alien actor
-alien = Actor('alien-right', midbottom=(350, 100))
+alien = mod.Actor('alien-right', midbottom=(350, 100))
 alien.xspeed = 0
 alien.yspeed = 0
 alien.onground = False
@@ -17,7 +18,7 @@ alien.score = 0
 alien.spawn = alien.center
 
 # make ninja actor
-ninja = Actor('jumper-left', midbottom=(850, 100))
+ninja = mod.Actor('jumper-left', midbottom=(850, 100))
 ninja.xspeed = 0
 ninja.yspeed = 0
 ninja.onground = False
@@ -34,17 +35,17 @@ stars = []
 platforms = []
 # left tower
 for i in range(1, 4):
-	platforms.append(Actor("platform-rock", (150, HEIGHT - 20 - 120 * i)))
-	platforms.append(Actor("platform-rock", (450, HEIGHT - 20 - 120 * i)))
-	platforms.append(Actor("platform-rock", (300, HEIGHT - 80 - 120 * i)))
+	platforms.append(mod.Actor("platform-rock", (150, HEIGHT - 20 - 120 * i)))
+	platforms.append(mod.Actor("platform-rock", (450, HEIGHT - 20 - 120 * i)))
+	platforms.append(mod.Actor("platform-rock", (300, HEIGHT - 80 - 120 * i)))
 # right tower
 for i in range(1, 4):
-	platforms.append(Actor("platform-rock", (950, HEIGHT - 20 - 120 * i)))
-	platforms.append(Actor("platform-rock", (650, HEIGHT - 20 - 120 * i)))
-	platforms.append(Actor("platform-rock", (800, HEIGHT - 80 - 120 * i)))
+	platforms.append(mod.Actor("platform-rock", (950, HEIGHT - 20 - 120 * i)))
+	platforms.append(mod.Actor("platform-rock", (650, HEIGHT - 20 - 120 * i)))
+	platforms.append(mod.Actor("platform-rock", (800, HEIGHT - 80 - 120 * i)))
 
 # make the diamonds
-diamond = Actor('diamond_s', midbottom=random.choice(platforms).midtop)
+diamond = mod.Actor('diamond_s', midbottom=random.choice(platforms).midtop)
 
 # Global physics variables
 GRAVITY = 0.2
@@ -52,10 +53,10 @@ FRICTION = 0.97
 
 
 def draw():
-	screen.clear()
-	screen.fill((200, 200, 255))
-	screen.blit(images.mountain, (0, 0))
-	screen.blit(images.planet, (-200, -100))
+	mod.screen.clear()
+	mod.screen.fill((200, 200, 255))
+	mod.screen.blit(mod.images.mountain, (0, 0))
+	mod.screen.blit(mod.images.planet, (-200, -100))
 	
 	for p in platforms:
 		p.draw()
@@ -71,8 +72,8 @@ def draw():
 		star.draw()
 	
 	# show the scores for each player
-	screen.draw.text("alien score: " + str(alien.score), topleft=(0, 0), fontsize=50, shadow=(1, 1))
-	screen.draw.text("ninja score: " + str(ninja.score), topright=(WIDTH, 0), fontsize=50, shadow=(1, 1))
+	mod.screen.draw.text("alien score: " + str(alien.score), topleft=(0, 0), fontsize=50, shadow=(1, 1))
+	mod.screen.draw.text("ninja score: " + str(ninja.score), topright=(WIDTH, 0), fontsize=50, shadow=(1, 1))
 
 
 def update():
@@ -84,22 +85,22 @@ def update():
 	ninja.xspeed *= FRICTION
 	
 	# alien controls
-	if keyboard.left:
+	if mod.keyboard.left:
 		alien.xspeed -= 0.2
 		alien.image = 'alien-left'
-	if keyboard.right:
+	if mod.keyboard.right:
 		alien.xspeed += 0.2
 		alien.image = 'alien-right'
-	if keyboard.up and alien.onground:
+	if mod.keyboard.up and alien.onground:
 		alien.yspeed = -5
 	# ninja controls
-	if keyboard.a:
+	if mod.keyboard.a:
 		ninja.xspeed -= 0.2
 		ninja.image = 'jumper-left'
-	if keyboard.d:
+	if mod.keyboard.d:
 		ninja.xspeed += 0.2
 		ninja.image = 'jumper-right'
-	if keyboard.w and ninja.onground:
+	if mod.keyboard.w and ninja.onground:
 		ninja.yspeed = -5
 	
 	# update alien and ninja positions
@@ -163,47 +164,47 @@ def update():
 	# check if laser hits ninja
 	for laser in lasers:
 		if laser.colliderect(ninja):
-			sounds.ouch_ninja.play()
+			mod.sounds.ouch_ninja.play()
 			lasers.remove(laser)
 			ninja.center = 0, -1000
 			ninja.score -= 1
 			alien.score += 1
-			clock.schedule_unique(respawnNinja, 1)
+			mod.clock.schedule_unique(respawnNinja, 1)
 	# check if star hits alien
 	for star in stars:
 		if star.colliderect(alien):
-			sounds.ouch_alien.play()
+			mod.sounds.ouch_alien.play()
 			stars.remove(star)
 			alien.center = 0, -1000
 			alien.score -= 1
 			ninja.score += 1
-			clock.schedule_unique(respawnAlien, 1)
+			mod.clock.schedule_unique(respawnAlien, 1)
 	
 	# check if either player gets the diamond
 	if alien.colliderect(diamond):
 		diamond.midbottom = random.choice(platforms).midtop
 		alien.score += 10
-		sounds.gem.play()
+		mod.sounds.gem.play()
 	if ninja.colliderect(diamond):
 		diamond.midbottom = random.choice(platforms).midtop
 		ninja.score += 10
-		sounds.gem.play()
+		mod.sounds.gem.play()
 
 
 def on_key_down(key):
 	# alien shoots a laser
-	if key == keys.SPACE and len(lasers) < 4:
-		laser = Actor('laser-horizontal', center=alien.center)
-		sounds.laser.play()
+	if key == mod.keys.SPACE and len(lasers) < 4:
+		laser = mod.Actor('laser-horizontal', center=alien.center)
+		mod.sounds.laser.play()
 		if alien.image == 'alien-left':
 			laser.xspeed = -10
 		else:
 			laser.xspeed = 10
 		lasers.append(laser)
 	# ninja throws a star
-	if key == keys.F and len(stars) < 4:
-		star = Actor('ninja_star', center=ninja.center)
-		sounds.whoosh.play()
+	if key == mod.keys.F and len(stars) < 4:
+		star = mod.Actor('ninja_star', center=ninja.center)
+		mod.sounds.whoosh.play()
 		if ninja.image == 'jumper-left':
 			star.xspeed = -10
 		else:
@@ -221,4 +222,6 @@ def respawnAlien():
 	alien.xspeed = alien.yspeed = 0
 
 
-music.play('battle_theme')
+mod.music.play('battle_theme')
+
+pgzrun.go()

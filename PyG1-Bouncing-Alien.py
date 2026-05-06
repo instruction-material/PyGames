@@ -1,17 +1,20 @@
-"""
-Create an alien actor that moves in a straight diagonal line across the screen and bounces when she hits a wall. Since the alien will be changing directions in this project, we will need to create global variables for the alien’s speed in the x direction and her speed in the y direction.
-"""
+import sys
+
+import pgzrun
+
+
+mod = sys.modules['__main__']
 
 WIDTH, HEIGHT = 500, 400
 
-alien = Actor('alien')
+alien = mod.Actor('alien')
 
 xspeed = 5
 yspeed = 5
 
 
 def draw():
-	screen.clear()
+	mod.screen.clear()
 	alien.draw()
 
 
@@ -22,13 +25,16 @@ def update():
 	
 	if alien.right >= WIDTH:
 		xspeed = -5
-		sounds.pop.play()
+		mod.sounds.pop.play()
 	if alien.bottom >= HEIGHT:
 		yspeed = -5
-		sounds.pop.play()
+		mod.sounds.pop.play()
 	if alien.left <= 0:
 		xspeed = 5
-		sounds.pop.play()
+		mod.sounds.pop.play()
 	if alien.top <= 0:
 		yspeed = 5
-		sounds.pop.play()
+		mod.sounds.pop.play()
+
+
+pgzrun.go()

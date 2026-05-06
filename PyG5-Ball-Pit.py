@@ -1,16 +1,17 @@
-"""
-Create a program with 10 balls that bounce off of the walls. Each of the balls should be affected by gravity and slowed down by friction. Whenever the player presses the spacebar, the balls should be given a random location and speed. Whenever the user clicks on a ball, the ball should be given a random speed.
-"""
-
 import random
+import sys
 
+import pgzrun
+
+
+mod = sys.modules['__main__']
 
 WIDTH, HEIGHT = 500, 400
 
 # create the list of 10 randomly located balls with random speeds
 balls = []
 for _ in range(10):
-	ball = Actor('beach_ball')
+	ball = mod.Actor('beach_ball')
 	ball.center = random.randint(0, WIDTH), random.randint(0, HEIGHT)
 	ball.xspeed = random.randint(-10, 10)
 	ball.yspeed = 0
@@ -25,7 +26,7 @@ FRICTION = .99
 
 # if space key pressed, randomize all of the ball positions and speeds
 def on_key_down(key):
-	if key == keys.SPACE:
+	if key == mod.keys.SPACE:
 		for ball in balls:
 			ball.center = random.randint(0, WIDTH), random.randint(0, HEIGHT)
 			ball.xspeed = random.randint(-10, 10)
@@ -38,12 +39,12 @@ def on_mouse_down(pos):
 		if ball.collidepoint(pos):
 			ball.xspeed = random.randint(-10, 10)
 			ball.yspeed = random.randint(-10, 10)
-			sounds.pop.play()
+			mod.sounds.pop.play()
 
 
 # draw the balls to the screen
 def draw():
-	screen.clear()
+	mod.screen.clear()
 	for ball in balls:
 		ball.draw()
 
@@ -75,3 +76,6 @@ def update():
 		if ball.top < 0:
 			ball.top = 0
 			ball.yspeed = -ball.yspeed
+
+
+pgzrun.go()

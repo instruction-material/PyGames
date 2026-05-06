@@ -1,9 +1,10 @@
-"""
-Create a program where a beach ball starts in the middle of the screen and then moves in a random direction until it goes offscreen. When the ball goes offscreen, it should come back to the center and then travel off in a different random direction.
-"""
-
 import random
+import sys
 
+import pgzrun
+
+
+mod = sys.modules['__main__']
 
 WIDTH, HEIGHT = 400, 300
 
@@ -15,12 +16,12 @@ def resetBall():
 	ball.center = (WIDTH / 2, HEIGHT / 2)
 
 
-ball = Actor('beach_ball', center=(WIDTH / 2, HEIGHT / 2))
+ball = mod.Actor('beach_ball', center=(WIDTH / 2, HEIGHT / 2))
 resetBall()
 
 
 def draw():
-	screen.clear()
+	mod.screen.clear()
 	ball.draw()
 
 
@@ -31,3 +32,6 @@ def update():
 	
 	if ball.left >= WIDTH or ball.top >= HEIGHT or ball.right <= 0 or ball.bottom <= 0:
 		resetBall()
+
+
+pgzrun.go()

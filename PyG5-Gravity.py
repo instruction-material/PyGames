@@ -1,7 +1,14 @@
+import sys
+
+import pgzrun
+
+
+mod = sys.modules['__main__']
+
 WIDTH, HEIGHT = 600, 500
 
 # create actor with dynamic attributes for the xspeed and yspeed variables
-ball = Actor('beach_ball')
+ball = mod.Actor('beach_ball')
 ball.xspeed = 0
 ball.yspeed = 0
 
@@ -22,11 +29,14 @@ def update():
 	# then check out for bounce
 	if ball.bottom > HEIGHT:
 		ball.yspeed = -ball.yspeed
-	# for extra safety, set the balls position to be in-bounds
-	# ball.bottom = HEIGHT
+		# for extra safety, set the balls position to be in-bounds
+		# ball.bottom = HEIGHT
 
 
 # draw the ball
 def draw():
-	screen.clear()
+	mod.screen.clear()
 	ball.draw()
+
+
+pgzrun.go()

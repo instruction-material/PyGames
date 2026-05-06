@@ -1,17 +1,24 @@
+import sys
+
+import pgzrun
+
+
+mod = sys.modules['__main__']
+
 WIDTH, HEIGHT = 750, 600
 
 # alien setup
-alien = Actor('alien')
+alien = mod.Actor('alien')
 alien.xspeed = 0
 alien.yspeed = 0
 alien.onground = False
 
 # platform setup
-p1 = ZRect((0, 400), (150, 20))
-p2 = ZRect((600, 400), (150, 20))
-floor = ZRect((0, HEIGHT - 20), (WIDTH, 20))
-mover1 = ZRect((288, 250), (150, 20))
-mover2 = ZRect((288, 150), (150, 20))
+p1 = mod.ZRect((0, 400), (150, 20))
+p2 = mod.ZRect((600, 400), (150, 20))
+floor = mod.ZRect((0, HEIGHT - 20), (WIDTH, 20))
+mover1 = mod.ZRect((288, 250), (150, 20))
+mover2 = mod.ZRect((288, 150), (150, 20))
 
 # put all platforms and movers into the platforms list
 platforms = [floor, p1, p2, mover1, mover2]
@@ -39,9 +46,9 @@ FRICTION = 0.97
 
 
 def draw():
-	screen.clear()
+	mod.screen.clear()
 	for p in platforms:
-		screen.draw.filled_rect(p, (255, 255, 255))
+		mod.screen.draw.filled_rect(p, (255, 255, 255))
 	alien.draw()
 
 
@@ -52,11 +59,11 @@ def update():
 	alien.xspeed *= FRICTION
 	
 	# check if any keys pressed
-	if keyboard.left:
+	if mod.keyboard.left:
 		alien.xspeed -= .3
-	if keyboard.right:
+	if mod.keyboard.right:
 		alien.xspeed += .3
-	if keyboard.space and alien.onground:
+	if mod.keyboard.space and alien.onground:
 		alien.yspeed = -11
 		alien.onground = False
 	
@@ -96,3 +103,6 @@ def update():
 	elif alien.right > WIDTH:
 		alien.right = WIDTH
 		alien.xspeed = 0
+
+
+pgzrun.go()

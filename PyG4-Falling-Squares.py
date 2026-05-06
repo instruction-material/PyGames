@@ -1,62 +1,23 @@
-"""
-Create a program where six red squares and one blue square in a line continuously fall down the screen. When the blue square is clicked, the line of squares falls faster.
-"""
+def diffie_hellman_brute_force_search(alpha_val, prime_mod_val, intercepted_a, intercepted_b):
+    secret_x = secret_y = -1
 
-import random
+    for exponent_guess in range(1, prime_mod_val):
+        calculated_val = pow(alpha_val, exponent_guess, prime_mod_val)
 
+        if calculated_val == intercepted_a:
+            secret_x = exponent_guess
+        if calculated_val == intercepted_b:
+            secret_y = exponent_guess
 
-WIDTH = 570
-HEIGHT = 500
+        if secret_x != -1 and secret_y != -1:
+            break
 
-blueSquare = Actor("blue", (525, HEIGHT / 2 - 25))
+    shared_key = -1 if secret_x == -1 else pow(intercepted_b, secret_x, prime_mod_val)
 
-rects = []
-x = 45
-for i in range(6):
-	r = Actor("red", (x, HEIGHT / 2 - 25))
-	rects.append(r)
-	x += 80
-
-positions = [45, 125, 205, 285, 365, 445, 525]
-
-speed = 5
-points = 0
+    return secret_x, secret_y, shared_key
 
 
-def draw():
-	screen.fill((0, 0, 0))
-	blueSquare.draw()
-	for i in rects:
-		i.draw()
+print(f"Recovered secrets and key: {diffie_hellman_brute_force_search(6, 13, 9, 2)}")
 
 
-def on_mouse_down(pos):
-	global speed
-	if blueSquare.collidepoint(pos):
-		resetSquares()
-		speed += 2
 
-
-def resetSquares():
-	index = random.randint(0, 6)
-	while positions[index] == blueSquare.x:
-		index = random.randint(0, 6)
-	blueSquare.x = positions[index]
-	ind = 0
-	blueSquare.y = 0
-	
-	for i in rects:
-		if ind == index:
-			ind += 1
-		i.x = positions[ind]
-		i.y = 0
-		ind += 1
-
-
-def update():
-	if blueSquare.y > HEIGHT:
-		resetSquares()
-	
-	blueSquare.y += speed
-	for i in rects:
-		i.y += speed

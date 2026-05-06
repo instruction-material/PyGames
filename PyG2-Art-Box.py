@@ -1,12 +1,16 @@
-"""
-Create a program where when the user drags the box across the screen, the box leaves behind a trail of color. When the space key is pressed, the screen is cleared, and the previous drawings of the box are erased. When the “d” key is pressed, the box changes to the next color. When the “a” key is pressed, the square changes to its previous color.
-"""
+import sys
 
-WIDTH, HEIGHT = 700, 700
+import pgzrun
+
+
+mod = sys.modules['__main__']
+
+WIDTH = 700
+HEIGHT = 700
 
 colors = ["blue", "red", "purple", "green", "orange", "yellow"]
 index = 0
-box = Actor(colors[index], (350, 350))
+box = mod.Actor(colors[index], (350, 350))
 box_grab = False
 
 
@@ -21,7 +25,7 @@ def on_mouse_up():
 
 def on_mouse_down(pos, button):
 	global box_grab
-	if box.collidepoint(pos) and button == mouse.LEFT:
+	if box.collidepoint(pos) and button == mod.mouse.LEFT:
 		box_grab = True
 
 
@@ -34,13 +38,16 @@ def on_mouse_move(pos):
 
 def on_key_down(key):
 	global index
-	if key == keys.SPACE:
-		screen.clear()
-	if key == keys.A:
+	if key == mod.keys.SPACE:
+		mod.screen.clear()
+	if key == mod.keys.A:
 		index -= 1
 		if index < 0:
 			index = 5
-	if key == keys.D:
+	if key == mod.keys.D:
 		index = (index + 1) % 6
 	
 	box.image = colors[index]
+
+
+pgzrun.go()

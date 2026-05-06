@@ -1,10 +1,11 @@
-"""
-Create a game where a ball is falling due to gravity. Whenever the player clicks on the ball, it should “pop” up as if someone hit it up from the bottom. In order to pop the ball up, set the yspeed to a small negative value and the xspeed to a random value between -15 and 15. Display the number of times the player pops the ball up in the top left corner and whenever the player clicks on the ball, increase the score by one. Make sure that the ball bounces off of the sides of the screen.
-"""
-
 import random
+import sys
 import time
 
+import pgzrun
+
+
+mod = sys.modules['__main__']
 
 # fix sound delay
 # import pygame
@@ -18,7 +19,7 @@ WIDTH = 500
 HEIGHT = 400
 
 # setup actor
-ball = Actor('beach_ball', anchor=('center', 'bottom'), pos=(WIDTH / 2, HEIGHT / 2))
+ball = mod.Actor('beach_ball', anchor=('center', 'bottom'), pos=(WIDTH / 2, HEIGHT / 2))
 ball.xspeed = 0
 ball.yspeed = 0
 
@@ -33,18 +34,18 @@ score = 0
 # if player clicks on ball, bounce it up and increase the score
 def on_mouse_down(pos, button):
 	global score
-	if ball.collidepoint(pos) and button == mouse.LEFT:
+	if ball.collidepoint(pos) and button == mod.mouse.LEFT:
 		ball.yspeed = -3
 		ball.xspeed = random.randint(-15, 15)
-		sounds.pop.play()
+		mod.sounds.pop.play()
 		score += 1
 
 
 # draw ball and score
 def draw():
-	screen.clear()
+	mod.screen.clear()
 	ball.draw()
-	screen.draw.text("score: " + str(score), (0, 0))
+	mod.screen.draw.text("score: " + str(score), (0, 0))
 
 
 # move the ball and bounce off walls
@@ -71,4 +72,6 @@ def wait():
 	time.sleep(1.5)
 
 
-clock.schedule(wait, 0)
+mod.clock.schedule(wait, 0)
+
+pgzrun.go()

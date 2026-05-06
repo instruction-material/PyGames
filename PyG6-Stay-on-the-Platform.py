@@ -1,18 +1,21 @@
-"""
-Create one platform that bounces around the screen and slowly speeds up. The player’s goal is to stay on the platform for as long as possible. Display the score in the top left corner and when the player falls below the screen, show the final score and display the words “GAME OVER” on the screen.
-"""
+import sys
+
+import pgzrun
+
+
+mod = sys.modules['__main__']
 
 WIDTH, HEIGHT = 750, 600
 
 # alien setup
-alien = Actor('alien')
+alien = mod.Actor('alien')
 alien.xspeed = 0
 alien.yspeed = 0
 alien.onground = False
 alien.pos = 200, 100
 
 # platform setup
-plat = ZRect((0, HEIGHT - 100), (300, 20))
+plat = mod.ZRect((0, HEIGHT - 100), (300, 20))
 
 # set speed for platform
 plat.xspeed = 2
@@ -32,14 +35,14 @@ lose = False
 
 def draw():
 	if lose:
-		screen.clear()
-		screen.draw.text("Score: " + str(score), (0, 0))
-		screen.draw.text("GAME OVER", center=(WIDTH / 2, HEIGHT / 2), fontsize=50)
+		mod.screen.clear()
+		mod.screen.draw.text("Score: " + str(score), (0, 0))
+		mod.screen.draw.text("GAME OVER", center=(WIDTH / 2, HEIGHT / 2), fontsize=50)
 	else:
-		screen.clear()
-		screen.draw.filled_rect(plat, (255, 255, 255))
+		mod.screen.clear()
+		mod.screen.draw.filled_rect(plat, (255, 255, 255))
 		alien.draw()
-		screen.draw.text("Score: " + str(score), (0, 0))
+		mod.screen.draw.text("Score: " + str(score), (0, 0))
 
 
 def update():
@@ -53,11 +56,11 @@ def update():
 		# alien.yspeed *= FRICTION
 		
 		# check if any keys pressed
-		if keyboard.left:
+		if mod.keyboard.left:
 			alien.xspeed -= .3
-		if keyboard.right:
+		if mod.keyboard.right:
 			alien.xspeed += .3
-		if keyboard.space and alien.onground:
+		if mod.keyboard.space and alien.onground:
 			alien.yspeed = -11
 			alien.onground = False
 		
@@ -100,3 +103,6 @@ def update():
 		# if alien falls off screen, game is over
 		if alien.top > HEIGHT:
 			lose = True
+
+
+pgzrun.go()

@@ -1,22 +1,25 @@
-"""
-Create two Actors, a lightbulb that appears in the center of the screen and a battery that can be dragged around by the mouse using event listeners. Create an update function that checks if the two actors are colliding using colliderect. If so, set the lightbulb’s image to the “on_bulb.” If they are not colliding, set the lightbulb’s image to the “off_bulb.”
-"""
+import sys
+
+import pgzrun
+
+
+mod = sys.modules['__main__']
 
 WIDTH, HEIGHT = 500, 400
 
 # create the two Actors objects
-battery = Actor('battery', pos=(0, 0))
-bulb = Actor('off_bulb', pos=(WIDTH / 2, HEIGHT / 2))
+battery = mod.Actor('battery', pos=(0, 0))
+bulb = mod.Actor('off_bulb', pos=(WIDTH / 2, HEIGHT / 2))
 
 
 # when the mouse is clicked or dragged, move the battery to the mouse's position
 def on_mouse_down(pos, button):
-	if button == mouse.LEFT:
+	if button == mod.mouse.LEFT:
 		battery.center = pos
 
 
 def on_mouse_move(pos, buttons):
-	if mouse.LEFT in buttons:
+	if mod.mouse.LEFT in buttons:
 		battery.center = pos
 
 
@@ -24,14 +27,17 @@ def on_mouse_move(pos, buttons):
 def update():
 	if battery.colliderect(bulb):
 		bulb.image = 'on_bulb'
-		sounds.buzz.play()
+		mod.sounds.buzz.play()
 	else:
 		bulb.image = 'off_bulb'
-		sounds.buzz.stop()
+		mod.sounds.buzz.stop()
 
 
 # draw the bulb and battery
 def draw():
-	screen.clear()
+	mod.screen.clear()
 	bulb.draw()
 	battery.draw()
+
+
+pgzrun.go()

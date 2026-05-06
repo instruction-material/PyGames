@@ -1,19 +1,20 @@
-"""
-Create a program where the spaceship collects the falling gems. Every time the ship catches a gem, the player earns 5 points. Be careful of the bombs! Every time a bomb hits the spaceship, the player loses 10 points.
-"""
-
 import random
+import sys
 
+import pgzrun
+
+
+mod = sys.modules['__main__']
 
 WIDTH = 520
 HEIGHT = 520
 
-spaceship = Actor("spaceship", (WIDTH / 2, 450))
+spaceship = mod.Actor("spaceship", (WIDTH / 2, 450))
 
 gems = []
 yStart = -500
 for i in range(5):
-	gem = Actor("diamond_s", (random.randint(100, 500), yStart))
+	gem = mod.Actor("diamond_s", (random.randint(100, 500), yStart))
 	gem.yspeed = 5
 	gem.xspeed = random.randint(1, 3)
 	if random.randint(0, 1) == 1:
@@ -24,7 +25,7 @@ for i in range(5):
 yStart = -500
 bombs = []
 for i in range(4):
-	bomb = Actor("bomb", (random.randint(100, 500), yStart))
+	bomb = mod.Actor("bomb", (random.randint(100, 500), yStart))
 	bomb.yspeed = 5
 	bomb.xspeed = random.randint(1, 3)
 	if random.randint(0, 1):
@@ -36,9 +37,9 @@ score = 0
 
 
 def draw():
-	screen.fill((255, 255, 255))
+	mod.screen.fill((255, 255, 255))
 	spaceship.draw()
-	screen.draw.text("Score: " + str(score), center=(50, 30), fontsize=30, color=(0, 0, 0))
+	mod.screen.draw.text("Score: " + str(score), center=(50, 30), fontsize=30, color=(0, 0, 0))
 	
 	# draw gems
 	for g in gems:
@@ -50,10 +51,10 @@ def draw():
 
 
 def moveShip():
-	if keyboard.right and spaceship.x < 500:
+	if mod.keyboard.right and spaceship.x < 500:
 		spaceship.x += 10
 	
-	if keyboard.left and spaceship.x > 20:
+	if mod.keyboard.left and spaceship.x > 20:
 		spaceship.x -= 10
 
 
@@ -98,3 +99,6 @@ def update():
 		b.y += b.yspeed
 		b.x += b.xspeed
 		checkBombCollision(b)
+
+
+pgzrun.go()
