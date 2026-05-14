@@ -4,6 +4,18 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# Generated Replit/Poetry export metadata; project folders keep source only.
+**/poetry.lock
+**/pyproject.toml
+**/pyproject.toml.backup
+**/.replit
+**/replit.nix
+**/replit.nix.backup
+
+# Retired duplicate archive layouts.
+_legacy-flat-layout/
+legacy-customized/
+
 # C extensions
 *.so
 

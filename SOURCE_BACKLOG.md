@@ -6,4 +6,4 @@ Promotion rule: move a folder out of this ledger only after the course text name
 
 | Folder | Classification | Action |
 | --- | --- | --- |
-| `legacy-customized` | legacy-or-archive | Legacy/archive material. Preserve for reference; do not link as active coursework without explicit migration. |
+| _None_ | _n/a_ | No inactive top-level source folders are currently recorded. |
