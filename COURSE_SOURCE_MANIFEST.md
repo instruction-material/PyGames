@@ -32,8 +32,8 @@ Canonical source repository: `PyGames`
 | `PG-12-check-in-1-actors-events-zrects-collectibles-supplemental-3` |
 | `PG-13-pyg5-physics-supplemental-2` |
 | `PG-14-pyg5-physics-supplemental-3` |
-| `PG-15-pyg6-managing-multiple-objects-obstacles-and-sur` |
-| `PG-16-pyg6-managing-multiple-objects-obstacles-and-sur` |
+| `PG-15-pyg6-managing-multiple-objects-obstacles-and-surfaces-supplemental-2` |
+| `PG-16-pyg6-managing-multiple-objects-obstacles-and-surfaces-supplemental-3` |
 | `PG-17-check-in-2-gravity-friction-platforms-supplemental-2` |
 | `PG-18-check-in-2-gravity-friction-platforms-supplemental-3` |
 | `PG-19-pyg7-levels-and-system-control-supplemental-2` |
@@ -42,8 +42,8 @@ Canonical source repository: `PyGames`
 | `PG-22-pyg8-game-elements-projectiles-supplemental-3` |
 | `PG-23-pyg9-game-elements-enemy-ai-supplemental-2` |
 | `PG-24-pyg9-game-elements-enemy-ai-supplemental-3` |
-| `PG-25-check-in-3-system-control-projectiles-enemy-ai-s` |
-| `PG-26-check-in-3-system-control-projectiles-enemy-ai-s` |
+| `PG-25-check-in-3-system-control-projectiles-enemy-ai-supplemental-2` |
+| `PG-26-check-in-3-system-control-projectiles-enemy-ai-supplemental-3` |
 | `PG-27-pyg10-ninja-versus-alien-supplemental-2` |
 | `PG-28-pyg10-ninja-versus-alien-supplemental-3` |
 | `PG-29-pyg11-space-invaders-supplemental-2` |
