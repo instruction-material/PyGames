@@ -12,6 +12,15 @@ Canonical source repository: `PyGames`
 - The verification gate checks for this manifest, the source backlog ledger, source-like files, removed Replit metadata, and any repo-specific readiness files.
 - Project-specific unit tests or build commands should still be run inside individual project folders when a project includes its own test harness.
 
+## Authored Classroom Starters
+
+- `Check-in-2-Starter.py`: newly authored starter for gravity, friction, and platforms.
+- `Check-in-3-Starter.py`: newly authored starter for system control, projectiles, and enemy AI.
+
+These two files were built from the current lesson objectives and the existing
+solution files. They are teaching starters, not recovered copies of unavailable
+legacy files.
+
 ## Active Catalog Targets
 
 | Folder |
@@ -59,4 +68,4 @@ Canonical source repository: `PyGames`
 - Top-level folders: 38
 - Active linked folders: 37
 - Ledgered inactive/support folders: 1
-- Source-like files: 148
+- Source-like files: 151
