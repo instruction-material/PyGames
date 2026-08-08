@@ -10,7 +10,9 @@ HEIGHT = 700
 
 coins = []
 for c in range(10):
-    c = mod.ZRect(random.randint(50, WIDTH - 50), random.randint(50, HEIGHT - 50), 10, 10)
+    c = mod.ZRect(
+        random.randint(50, WIDTH - 50), random.randint(50, HEIGHT - 50), 10, 10
+    )
     c.color = (230, 230, 0)
     coins.append(c)
 
@@ -33,7 +35,12 @@ score = 0
 def draw():
     mod.screen.clear()
     alien.draw()
-    mod.screen.draw.text("Score: " + str(score), center=(50, 30), fontsize=30, color=(255, 255, 255))
+    mod.screen.draw.text(
+        "Score: " + str(score),
+        center=(50, 30),
+        fontsize=30,
+        color=(255, 255, 255),
+    )
     for c in coins:
         mod.screen.draw.filled_rect(c, c.color)
 
@@ -72,11 +79,15 @@ def update():
     for b in blocks:
         if b.colliderect(alien):
             score -= 10
-            alien.x, alien.y = random.randint(50, WIDTH - 50), random.randint(50, HEIGHT - 50)
+            alien.x, alien.y = random.randint(50, WIDTH - 50), random.randint(
+                50, HEIGHT - 50
+            )
 
     for c in coins:
         if c.colliderect(alien):
-            c.x, c.y = random.randint(50, WIDTH - 50), random.randint(50, HEIGHT - 50)
+            c.x, c.y = random.randint(50, WIDTH - 50), random.randint(
+                50, HEIGHT - 50
+            )
             score += 1
 
 

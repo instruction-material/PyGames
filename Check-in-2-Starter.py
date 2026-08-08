@@ -8,7 +8,6 @@ import sys
 
 import pgzrun
 
-
 mod = sys.modules["__main__"]
 
 # Begin with "bigfoot". Change this to "shuffleboard" when the class reaches

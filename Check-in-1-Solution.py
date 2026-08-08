@@ -38,6 +38,7 @@ yspeed = -10
 # Ans: We use event listeners to only do something in our code if a specific event happens,
 # for example, the user presses a specific key or clicks a button.
 
+
 # Make the alien change direction whenever an arrow key is pressed.
 # Whenever the alien goes off of the screen, make the alien bounce off of the edge.
 def on_key_down(key):
@@ -73,7 +74,9 @@ def on_mouse_down(pos, button):
 
 # Create a blue ZRect object at a random position on the screen of width 50 and height 50 and draw it on the screen.
 #                   (       x,                         y,              width, height)
-blueRect = mod.ZRect(random.randint(0, WIDTH), random.randint(0, HEIGHT), 50, 50)
+blueRect = mod.ZRect(
+    random.randint(0, WIDTH), random.randint(0, HEIGHT), 50, 50
+)
 blueRect.color = (0, 0, 255)
 
 # What are dynamic attributes?
@@ -95,7 +98,9 @@ blueRect.yspeed = 10
 # Make them all move in a random direction on a screen and bounce off of the edges.
 squares = []
 for s in range(10):
-    b = mod.ZRect(random.randint(50, WIDTH - 50), random.randint(50, HEIGHT - 50), 50, 50)
+    b = mod.ZRect(
+        random.randint(50, WIDTH - 50), random.randint(50, HEIGHT - 50), 50, 50
+    )
     b.yspeed = random.randint(-10, 10)
     b.xspeed = random.randint(-10, 10)
     b.color = (0, 0, 255)
@@ -153,7 +158,11 @@ def update():
 
         # When any of them collide with the alien, make them change to a random color
         if squares[s].colliderect(alien):
-            squares[s].color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+            squares[s].color = (
+                random.randint(0, 255),
+                random.randint(0, 255),
+                random.randint(0, 255),
+            )
 
         # When any of them collid with each other, make them bounce off of each other.
         for i in range(len(squares)):

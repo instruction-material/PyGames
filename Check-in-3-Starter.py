@@ -9,7 +9,6 @@ import sys
 
 import pgzrun
 
-
 mod = sys.modules["__main__"]
 
 WIDTH = 800

@@ -11,10 +11,10 @@ pygame.init()
 pygame.mixer.quit()
 pygame.mixer.init(22050, -16, 2, 1024)
 
-WIDTH,HEIGHT = 750,600
+WIDTH, HEIGHT = 750, 600
 
 # make seaweed
-seaweed = Actor('seaweed', midbottom=(WIDTH/2,HEIGHT+20))
+seaweed = Actor('seaweed', midbottom=(WIDTH / 2, HEIGHT + 20))
 
 # make diver
 diver = Actor('diver-right', midtop=seaweed.midtop)
@@ -22,7 +22,7 @@ diver.xspeed = 0
 diver.yspeed = 0
 
 # make shark
-shark = Actor('shark-left', pos=(WIDTH/2,50))
+shark = Actor('shark-left', pos=(WIDTH / 2, 50))
 # use two variables to store the target position of the shark
 shark.xspeed = 0
 shark.yspeed = 0
@@ -32,12 +32,14 @@ shark.speedMultiplier = 1
 # make fish
 fish = []
 for i in range(10):
-    f=Actor('fish', pos=(random.randint(0,WIDTH),random.randint(0,HEIGHT/2)))
-    f.xspeed = random.uniform(1,3)
+    f = Actor(
+        'fish', pos=(random.randint(0, WIDTH), random.randint(0, HEIGHT / 2))
+    )
+    f.xspeed = random.uniform(1, 3)
     fish.append(f)
 
 # make crab
-crab = Actor('crab',bottomleft=(50,HEIGHT))
+crab = Actor('crab', bottomleft=(50, HEIGHT))
 
 # global variables
 GRAVITY = 0.1
@@ -48,7 +50,7 @@ score = 0
 
 def draw():
     screen.clear()
-    screen.fill((70,130,200))
+    screen.fill((70, 130, 200))
     if gameState == 'play':
         diver.draw()
         for f in fish:
@@ -57,11 +59,19 @@ def draw():
         crab.draw()
         shark.draw()
 
-        screen.draw.text("Fish Collected: " + str(score), midtop=(WIDTH/2,0), color=(255,255,255), shadow=(2,2))
+        screen.draw.text(
+            "Fish Collected: " + str(score),
+            midtop=(WIDTH / 2, 0),
+            color=(255, 255, 255),
+            shadow=(2, 2),
+        )
     elif gameState == 'lose':
         diver.draw()
-        screen.draw.text("Game Over!\n\nPress Enter to Play Again \nor Escape to Quit!", center=(WIDTH/2, HEIGHT/2), fontsize=35)
-
+        screen.draw.text(
+            "Game Over!\n\nPress Enter to Play Again \nor Escape to Quit!",
+            center=(WIDTH / 2, HEIGHT / 2),
+            fontsize=35,
+        )
 
 
 def update():
@@ -75,15 +85,15 @@ def update():
     # if player is pressing 'up' make diver swim up, etc. Only do this when gameState is play
     if gameState == 'play':
         if keyboard.up:
-            diver.yspeed -= .3
+            diver.yspeed -= 0.3
         if keyboard.left:
-            diver.xspeed -= .3
+            diver.xspeed -= 0.3
             diver.image = 'diver-left'
         if keyboard.right:
-            diver.xspeed += .3
+            diver.xspeed += 0.3
             diver.image = 'diver-right'
         if keyboard.down:
-            diver.yspeed += .1
+            diver.yspeed += 0.1
 
     # update position of diver
     diver.y += diver.yspeed
@@ -125,7 +135,7 @@ def update():
     # check if player collected fish
     for f in fish:
         if diver.colliderect(f):
-            f.pos = (-100,random.randint(0,HEIGHT/2))
+            f.pos = (-100, random.randint(0, HEIGHT / 2))
             score += 1
             sounds.pop.play()
 
@@ -137,7 +147,7 @@ def update():
         elif diver.x < crab.x:
             crab.x -= 1
     else:
-        if crab.x < WIDTH/2:
+        if crab.x < WIDTH / 2:
             crab.x -= 0.3
         else:
             crab.x += 0.3
@@ -146,10 +156,11 @@ def update():
         gameState = 'lose'
         music.fadeout(4)
 
+
 def setTarget():
     if seaweed.contains(diver):
-        xtarget = random.randint(0,WIDTH)
-        ytarget = random.randint(0,HEIGHT)
+        xtarget = random.randint(0, WIDTH)
+        ytarget = random.randint(0, HEIGHT)
         shark.speedMultiplier /= 1.1
     else:
         xtarget = diver.x
@@ -158,8 +169,8 @@ def setTarget():
 
     # find the shark's necessary xspeed and yspeed to get to target point
     distance = shark.distance_to((xtarget, ytarget))
-    shark.xspeed = shark.speedMultiplier * (xtarget-shark.x)/distance
-    shark.yspeed = shark.speedMultiplier * (ytarget-shark.y)/distance
+    shark.xspeed = shark.speedMultiplier * (xtarget - shark.x) / distance
+    shark.yspeed = shark.speedMultiplier * (ytarget - shark.y) / distance
 
     # set direction of shark
     if shark.xspeed < 0:
@@ -173,13 +184,14 @@ def setTarget():
     elif shark.speedMultiplier < 1:
         shark.speedMultiplier = 1
 
+
 def on_key_down(key):
     global gameState, score
     # reset the game
     if key is keys.RETURN and gameState != 'play':
         score = 0
         # reset shark
-        shark.midtop = WIDTH/2,0
+        shark.midtop = WIDTH / 2, 0
         shark.xspeed = 0
         shark.yspeed = 0
         shark.speedMultiplier = 1
@@ -195,6 +207,7 @@ def on_key_down(key):
     elif key == keys.ESCAPE and gameState != 'play':
         quit()
 
-clock.schedule_interval(setTarget,1)
+
+clock.schedule_interval(setTarget, 1)
 
 music.play('water_theme')

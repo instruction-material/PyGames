@@ -11,7 +11,7 @@ bigfoot = mod.Actor('bigfoot', center=(WIDTH / 2, HEIGHT / 2))
 bigfoot.yspeed = 0
 
 # Global variables
-GRAVITY = .5
+GRAVITY = 0.5
 
 # Create a platform that will move horizontally
 plat = mod.ZRect(0, HEIGHT // 2 - 10, 200, 20)
@@ -46,11 +46,21 @@ def update():
         plat.xspeed = -plat.xspeed
 
     # make bigfoot stand on the platform
-    if bigfoot.colliderect(plat) and bigfoot.yspeed > 0 and bigfoot.bottom < plat.bottom and GRAVITY > 0:
+    if (
+        bigfoot.colliderect(plat)
+        and bigfoot.yspeed > 0
+        and bigfoot.bottom < plat.bottom
+        and GRAVITY > 0
+    ):
         bigfoot.bottom = plat.top
         bigfoot.yspeed = 0
     # reverse gravity platform standing
-    if bigfoot.colliderect(plat) and bigfoot.yspeed < 0 and bigfoot.top > plat.top and GRAVITY < 0:
+    if (
+        bigfoot.colliderect(plat)
+        and bigfoot.yspeed < 0
+        and bigfoot.top > plat.top
+        and GRAVITY < 0
+    ):
         bigfoot.top = plat.bottom
         bigfoot.yspeed = 0
 

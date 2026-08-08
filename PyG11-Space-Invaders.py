@@ -78,27 +78,59 @@ def draw():
         if fired:
             mod.screen.draw.filled_rect(projectile, (255, 50, 50))
 
-        mod.screen.draw.text("Lives: " + str(lives), center=(50, 20), fontsize=30, color=(255, 255, 255))
-        mod.screen.draw.text("Score: " + str(score), center=(50, 50), fontsize=30, color=(255, 255, 255))
+        mod.screen.draw.text(
+            "Lives: " + str(lives),
+            center=(50, 20),
+            fontsize=30,
+            color=(255, 255, 255),
+        )
+        mod.screen.draw.text(
+            "Score: " + str(score),
+            center=(50, 50),
+            fontsize=30,
+            color=(255, 255, 255),
+        )
 
     elif gameState == "start":
-        mod.screen.draw.text("Press Enter to Start the Game!", center=(WIDTH / 2, HEIGHT / 2), fontsize=40,
-                             color=(255, 255, 255))
+        mod.screen.draw.text(
+            "Press Enter to Start the Game!",
+            center=(WIDTH / 2, HEIGHT / 2),
+            fontsize=40,
+            color=(255, 255, 255),
+        )
 
     elif gameState == "end":
-        mod.screen.draw.text("Game Over!\nPress Enter to Play Again \nor Escape to Quit!",
-                             center=(WIDTH / 2, HEIGHT / 2), fontsize=40, color=(255, 255, 255))
+        mod.screen.draw.text(
+            "Game Over!\nPress Enter to Play Again \nor Escape to Quit!",
+            center=(WIDTH / 2, HEIGHT / 2),
+            fontsize=40,
+            color=(255, 255, 255),
+        )
 
     else:
         sound.draw()
         musicPlayer.draw()
-        mod.screen.draw.text("Pause", center=(WIDTH / 2, 50), fontsize=50, color=(255, 255, 255))
+        mod.screen.draw.text(
+            "Pause", center=(WIDTH / 2, 50), fontsize=50, color=(255, 255, 255)
+        )
         mod.screen.draw.filled_rect(continueButton, (147, 112, 219))
-        mod.screen.draw.text("Continue", center=(WIDTH / 2, 175), fontsize=30, color=(255, 255, 255))
+        mod.screen.draw.text(
+            "Continue",
+            center=(WIDTH / 2, 175),
+            fontsize=30,
+            color=(255, 255, 255),
+        )
         mod.screen.draw.filled_rect(restart, (147, 112, 219))
-        mod.screen.draw.text("Restart", center=(WIDTH / 2, 255), fontsize=30, color=(255, 255, 255))
+        mod.screen.draw.text(
+            "Restart",
+            center=(WIDTH / 2, 255),
+            fontsize=30,
+            color=(255, 255, 255),
+        )
         mod.screen.draw.filled_rect(quitButton, (147, 112, 219))
-        mod.screen.draw.text("Quit", center=(WIDTH / 2, 335), fontsize=30, color=(255, 255, 255))
+        mod.screen.draw.text(
+            "Quit", center=(WIDTH / 2, 335), fontsize=30, color=(255, 255, 255)
+        )
 
 
 def on_mouse_down(pos):
