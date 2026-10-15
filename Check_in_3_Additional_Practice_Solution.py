@@ -33,7 +33,7 @@ shark.speedMultiplier = 1
 fish = []
 for i in range(10):
     f = Actor(
-        'fish', pos=(random.randint(0, WIDTH), random.randint(0, HEIGHT / 2))
+        'fish', pos=(random.randint(0, WIDTH), random.randint(0, HEIGHT // 2))
     )
     f.xspeed = random.uniform(1, 3)
     fish.append(f)
@@ -135,7 +135,7 @@ def update():
     # check if player collected fish
     for f in fish:
         if diver.colliderect(f):
-            f.pos = (-100, random.randint(0, HEIGHT / 2))
+            f.pos = (-100, random.randint(0, HEIGHT // 2))
             score += 1
             sounds.pop.play()
 
