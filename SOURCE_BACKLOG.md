@@ -1,9 +1,20 @@
 # Source Backlog Ledger
 
-This ledger records top-level source folders that are present in the repository but are not active catalog starter or solution targets. A folder listed here is intentionally not an unresolved audit failure.
+This ledger records prepared projects and repository support that are not
+current catalog starter/reference targets. Entries retain their actual status.
 
-Promotion rule: move a folder out of this ledger only after the course text names where it belongs, whether it is starter or solution material, and how the student or tutor verifies it.
+Promotion requires linked immutable starter/reference roles, complete course
+readings, consent before import, all required assets and verified save/reopen/
+export behavior. A native source test alone does not complete that integration.
 
-| Folder | Classification | Action |
+| Folder | Classification | Remaining action |
 | --- | --- | --- |
-| _None_ | _n/a_ | No inactive top-level source folders are currently recorded. |
+| `PG-CORE-Workspace-and-Assets` | Prepared required setup replacement | Replace the asset-only `music` link through validated application integration |
+| `PG-CORE-Image-Anchors` | Prepared required image studio replacement | Replace the asset-only `images` link through validated application integration |
+| `PG-CORE-Arena-Capstone` | Prepared required capstone example | Replace the asset-only `sounds` link through validated application integration |
+| `test` | Repository verification support | Retain native observer and positive/negative contract verifier |
+| `.github` | CI support | Retain the read-only native validation workflow |
+
+The 34 existing supplemental/studio generated pairs remain a separate semantic
+audit obligation. These three new core packs do not establish that those
+projects fulfill their individual learning objectives.

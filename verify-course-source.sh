@@ -38,13 +38,13 @@ for check_in in 2 3; do
 done
 
 if find . \
-  \( -path './.git' -o -path './node_modules' -o -path './Library' -o -path './Temp' -o -path './Logs' \) -prune -o \
+  \( -path './.git' -o -path './node_modules' -o -path './.venv' -o -path './venv' -o -path './output' -o -path './__pycache__' -o -path './Library' -o -path './Temp' -o -path './Logs' \) -prune -o \
   \( -name '.replit' -o -name 'replit.nix' -o -name 'replit.nix.backup' -o -name 'replit_zip_error_log.txt' \) -print | grep -q .; then
   fail "replit metadata should not be committed"
 fi
 
 source_count="$(find . \
-  \( -path './.git' -o -path './node_modules' -o -path './Library' -o -path './Temp' -o -path './Logs' \) -prune -o \
+  \( -path './.git' -o -path './node_modules' -o -path './.venv' -o -path './venv' -o -path './output' -o -path './__pycache__' -o -path './Library' -o -path './Temp' -o -path './Logs' \) -prune -o \
   -type f \( -name '*.py' -o -name '*.java' -o -name '*.cpp' -o -name '*.c' -o -name '*.h' -o -name '*.hpp' -o -name '*.js' -o -name '*.ts' -o -name '*.swift' -o -name '*.cs' -o -name '*.md' \) -print | wc -l | tr -d ' ')"
 
 [ "$source_count" -gt 0 ] || fail "no source-like files found"

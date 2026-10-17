@@ -63,9 +63,40 @@ legacy files.
 | `PG-34-applied-studio-17-images-supplemental-3` |
 | `sounds` |
 
+## Prepared Core Packs
+
+| Folder | Purpose | Current mapping |
+| --- | --- | --- |
+| `PG-CORE-Workspace-and-Assets` | Window configuration and self-contained PNG layout | Proposed replacement for the setup activity's asset-only `music` target |
+| `PG-CORE-Image-Anchors` | Image anchors, full sprite bounds, and mouse input | Proposed replacement for the images studio's asset-only `images` target |
+| `PG-CORE-Arena-Capstone` | Integrated actors, input, collections, physics, surfaces and round state | Proposed replacement for the capstone's asset-only `sounds` target |
+
+Each pack has a shared reading and separate runnable starter/reference roles.
+The selected role includes all Python modules, unchanged original alien PNG,
+pinned native requirements, contracts, and a blank observations record.
+Completing a starter changes only its declared task module.
+
+These programs are newly authored from the course objectives. The original
+`PyG0-Template.py` remains a valid empty Pygame Zero script. The original
+`PyG12-Master-Project.py` remains the open-ended Juni brief; Arena Delivery is
+one newly authored integrated example, not a recovered Juni solution. All 46
+original top-level Juni programs, existing 34 generated pairs, shared media,
+and `assets.zip` are retained unchanged.
+
+The native CI gate checks twelve starter/completion/reference/regression
+profiles with Python 3.12 and actual Pygame Zero/SDL loops. Retained evidence
+separates posted keyboard/mouse events from controlled terminal-state checks.
+Passing native checks does not establish browser import, consent, persistence
+or export. Those require the application integration's own acceptance.
+
+The three new packs remain in the backlog ledger until the application links
+both immutable roles, provides their complete readings, imports their binary
+asset with consent, and verifies save/reopen/export. The asset roots above
+remain the current catalog targets until that integration is accepted.
+
 ## Source Inventory
 
-- Top-level folders: 38
+- Top-level tracked folders: 42
 - Active linked folders: 37
-- Ledgered inactive/support folders: 1
-- Source-like files: 151
+- Ledgered prepared/support folders: 5
+- Source-like files: 180
