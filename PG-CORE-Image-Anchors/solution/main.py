@@ -10,7 +10,7 @@ alien = Actor("alien", center=(WIDTH / 2, HEIGHT / 2))
 def draw():
     screen.fill((24, 31, 43))
     alien.draw()
-    screen.draw.rect(alien, (240, 200, 70))
+    screen.draw.rect(Rect(alien.left, alien.top, alien.width, alien.height), (240, 200, 70))
     screen.draw.filled_circle(alien.center, 3, (250, 90, 90))
 
 

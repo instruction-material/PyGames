@@ -12,7 +12,7 @@ permissions:
 jobs:
   native:
     name: Native game windows and contracts
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 12
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
@@ -36,3 +36,4 @@ jobs:
           path: output/core-projects
           if-no-files-found: error
           retention-days: 14
+          include-hidden-files: true
