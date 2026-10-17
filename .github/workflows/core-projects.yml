@@ -1,0 +1,39 @@
+name: Core projects
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  native:
+    name: Native game windows and contracts
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: "3.12"
+      - name: Verify course source inventory
+        run: bash verify-course-source.sh
+      - name: Install pinned native dependencies
+        run: python -m pip install -r PG-CORE-Workspace-and-Assets/starter/requirements.txt
+      - name: Validate untouched, completed, reference and regression profiles
+        env:
+          PYTHONDONTWRITEBYTECODE: "1"
+        run: python test/verify_core_projects.py --output output/core-projects
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        if: always()
+        with:
+          name: native-core-projects
+          path: output/core-projects
+          if-no-files-found: error
+          retention-days: 14
+          include-hidden-files: true
