@@ -81,7 +81,8 @@ These programs are newly authored from the course objectives. The original
 `PyG12-Master-Project.py` remains the open-ended Juni brief; Arena Delivery is
 one newly authored integrated example, not a recovered Juni solution. All 46
 original top-level Juni programs, existing 34 generated pairs, shared media,
-and `assets.zip` are retained unchanged.
+and `assets.zip` remain available. Golf's draw order has been corrected so its
+stroke count is rendered after the course actors.
 
 The native CI gate checks twelve starter/completion/reference/regression
 profiles with Python 3.12 and actual Pygame Zero/SDL loops. Retained evidence
@@ -99,4 +100,4 @@ remain the current catalog targets until that integration is accepted.
 - Top-level tracked folders: 42
 - Active linked folders: 37
 - Ledgered prepared/support folders: 5
-- Source-like files: 180
+- Source-like files: 181
