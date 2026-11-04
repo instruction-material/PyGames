@@ -81,8 +81,8 @@ These programs are newly authored from the course objectives. The original
 `PyG12-Master-Project.py` remains the open-ended Juni brief; Arena Delivery is
 one newly authored integrated example, not a recovered Juni solution. All 46
 original top-level Juni programs, existing 34 generated pairs, shared media,
-and `assets.zip` remain available. Golf's draw order has been corrected so its
-stroke count is rendered after the course actors.
+and `assets.zip` remain available. Golf's shot guards, slow-goal latch and bounded round reset follow its lesson.
+Its stroke count is rendered after the course actors.
 
 The native CI gate checks twelve starter/completion/reference/regression
 profiles with Python 3.12 and actual Pygame Zero/SDL loops. Retained evidence
@@ -100,4 +100,16 @@ remain the current catalog targets until that integration is accepted.
 - Top-level tracked folders: 42
 - Active linked folders: 37
 - Ledgered prepared/support folders: 5
-- Source-like files: 181
+- Source-like files: 182
+
+## Golf Reference Checks
+
+`python test/verify_golf.py --output output/core-projects/golf` runs the actual
+Golf program with Pygame Zero, SDL mouse/key events and unchanged image assets.
+It checks right-click refusal, both signed speed guards, a single accepted shot,
+input outside play, and restart cancellation of the delayed next round.
+Separately labelled controlled checks cover 100 round placements, wall bounds,
+fast and distant goal rejection, and one-time slow-goal handling. A disposable
+button-filter regression must fail the same native event check. The evidence
+retains process logs, state records and screenshots; it does not certify the
+application's import, save/reopen or export path.

@@ -29,6 +29,10 @@ jobs:
         env:
           PYTHONDONTWRITEBYTECODE: "1"
         run: python test/verify_core_projects.py --output output/core-projects
+      - name: Validate Golf input, goals and bounded round resets
+        env:
+          PYTHONDONTWRITEBYTECODE: "1"
+        run: python test/verify_golf.py --output output/core-projects/golf
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         if: always()
         with:
