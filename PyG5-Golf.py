@@ -21,10 +21,10 @@ strokes = 0
 
 def draw():
     mod.screen.fill((50, 100, 50))
-    mod.screen.draw.text("Strokes: " + str(strokes), (5, 5))
     flag.draw()
     hole.draw()
     ball.draw()
+    mod.screen.draw.text("Strokes: " + str(strokes), (5, 5))
 
 
 def on_mouse_down(pos):
