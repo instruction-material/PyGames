@@ -100,7 +100,7 @@ remain the current catalog targets until that integration is accepted.
 - Top-level tracked folders: 42
 - Active linked folders: 37
 - Ledgered prepared/support folders: 5
-- Source-like files: 182
+- Source-like files: 183
 
 ## Golf Reference Checks
 
@@ -113,3 +113,5 @@ fast and distant goal rejection, and one-time slow-goal handling. A disposable
 button-filter regression must fail the same native event check. The evidence
 retains process logs, state records and screenshots; it does not certify the
 application's import, save/reopen or export path.
+
+`python test/verify_light_control.py --output output/core-projects/light-control` checks the bulb image and number of active buzz channels through contact, separation and re-entry.
