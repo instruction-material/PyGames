@@ -24,10 +24,11 @@ def on_mouse_move(pos, buttons):
 
 # check if the actors are colliding, if so, change the bulb's image to on
 def update():
-    if battery.colliderect(bulb):
+    touching = battery.colliderect(bulb)
+    if touching and bulb.image == 'off_bulb':
         bulb.image = 'on_bulb'
-        mod.sounds.buzz.play()
-    else:
+        mod.sounds.buzz.play(loops=-1)
+    elif not touching and bulb.image == 'on_bulb':
         bulb.image = 'off_bulb'
         mod.sounds.buzz.stop()
 

@@ -33,6 +33,8 @@ jobs:
         env:
           PYTHONDONTWRITEBYTECODE: "1"
         run: python test/verify_golf.py --output output/core-projects/golf
+      - name: Verify light and sound across repeated contact
+        run: python test/verify_light_control.py --output output/core-projects/light-control
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         if: always()
         with:
