@@ -35,6 +35,17 @@ jobs:
         run: python test/verify_golf.py --output output/core-projects/golf
       - name: Verify light and sound across repeated contact
         run: python test/verify_light_control.py --output output/core-projects/light-control
+      - name: Validate the editable Light Control starter and reference
+        run: |
+          if python PG-CORE-Light-Control/starter/contracts.py > starter-contract.log 2>&1; then
+            echo "The untouched starter passed its learner contract."
+            exit 1
+          fi
+          cat starter-contract.log
+          grep -Fx "AssertionError: (True, False, 'on', None)" starter-contract.log
+          python PG-CORE-Light-Control/solution/contracts.py
+          python test/verify_light_control.py --program PG-CORE-Light-Control/starter/main.py --starter --output output/core-projects/light-control-starter
+          python test/verify_light_control.py --program PG-CORE-Light-Control/solution/main.py --output output/core-projects/light-control-solution
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         if: always()
         with:

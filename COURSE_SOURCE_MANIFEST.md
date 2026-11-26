@@ -25,6 +25,7 @@ legacy files.
 
 | Folder |
 | --- |
+| `PG-CORE-Light-Control` |
 | `images` |
 | `music` |
 | `PG-01-pyg0-setup-editors-and-asset-workflow-supplemental-2` |
@@ -100,7 +101,7 @@ remain the current catalog targets until that integration is accepted.
 - Top-level tracked folders: 42
 - Active linked folders: 37
 - Ledgered prepared/support folders: 5
-- Source-like files: 183
+- Source-like files: 192
 
 ## Golf Reference Checks
 
